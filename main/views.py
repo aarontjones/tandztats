@@ -8,8 +8,8 @@ def home(request):
 def aftercare(request):
     return render(request, "home.html")
 
-def about(request):
-    return render(request, "about.html")
+def booking(request):
+    return render(request, "booking.html")
 
 def gallery(request):
     return render(request, "gallery.html")
