@@ -1,9 +1,9 @@
-from django.urls import path
+from django_distill import distill_path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('aftercare/', views.aftercare, name='aftercare'),
-    path('booking/', views.booking, name='booking'),
-    path('gallery/', views.gallery, name='gallery')
+    distill_path('', views.home, name='home'),
+    distill_path('aftercare/', views.aftercare, name='aftercare'),
+    distill_path('booking/', views.booking, name='booking'),
+    distill_path('gallery/', views.gallery, name='gallery')
 ]
