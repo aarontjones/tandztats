@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tandz Tats</title>
+    <link rel="stylesheet" href="{% static 'about.css' %}">
+</head>
+
+<body>
+    <!-- Title and Navbar Section -->
+    <div class="main-container">
+        <div class="top-container">
+            <div class="title-container">
+                <h2 class="main-title">Tandz Tats</h2>
+                <p class="tagline">fineline tattoo artist</p>
+            </div>
+            <div class="navbar-container">
+                <nav class="navbar">
+                    <li class="navbar-list"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="navbar-list"><a href="{% url 'gallery' %}">Gallery</a></li>
+                    <li class="navbar-list"><a href="{% url 'aftercare' %}">aftercare</a></li>
+                    <li class="navbar-list"><a href="{% url 'about' %}">About</a></li>
+                </nav>
+            </div>
+        </div>
+    <!-- Title and Navbar Section -->
+    <!-- Aftercare Information -->
+    <!-- Pretty simple page, just a block of text with information about fine-line aftercare -->
+     
+    <!-- Aftercare Information -->
+</body>
+
+</html>
