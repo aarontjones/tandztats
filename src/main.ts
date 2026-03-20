@@ -56,10 +56,10 @@ function createNavItem(text: string, href: string): HTMLLIElement {
 }
 
 // Create Nav items
-const homeItem = createNavItem("Home", "/")
-const galleryItem = createNavItem("Gallery", "/gallery")
-const aftercareItem = createNavItem("Aftercare", "/aftercare")
-const bookingItem = createNavItem("Booking", "/booking")
+const homeItem = createNavItem("Home", "#/")
+const galleryItem = createNavItem("Gallery", "#/gallery")
+const aftercareItem = createNavItem("Aftercare", "#/aftercare")
+const bookingItem = createNavItem("Booking", "#/booking")
 
 // Content Container
 const contentContainer = document.createElement("div")
@@ -121,15 +121,6 @@ function bookingPage(): HTMLElement {
     return bookingContainer
 }
 
-// Stuff for redirecting
-
-const params = new URLSearchParams(window.location.search)
-const redirect = params.get("redirect")
-
-if (redirect) {
-  window.history.replaceState({}, "", redirect)
-}
-
 // Router - Switches between pages, sharing title and navbar
 function router(path: string): HTMLElement {
     switch (path) {
@@ -151,7 +142,8 @@ function router(path: string): HTMLElement {
 // Rendering Page
 function renderPage() {
     contentContainer.innerHTML = ""
-    const page = router(window.location.pathname)
+    const path = window.location.hash.slice(1) || "/"
+    const page = router(path)
     contentContainer.appendChild(page)
 }
 

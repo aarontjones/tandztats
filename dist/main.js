@@ -42,10 +42,10 @@ function createNavItem(text, href) {
     return li;
 }
 // Create Nav items
-const homeItem = createNavItem("Home", "/");
-const galleryItem = createNavItem("Gallery", "/gallery");
-const aftercareItem = createNavItem("Aftercare", "/aftercare");
-const bookingItem = createNavItem("Booking", "/booking");
+const homeItem = createNavItem("Home", "#/");
+const galleryItem = createNavItem("Gallery", "#/gallery");
+const aftercareItem = createNavItem("Aftercare", "#/aftercare");
+const bookingItem = createNavItem("Booking", "#/booking");
 // Content Container
 const contentContainer = document.createElement("div");
 contentContainer.className = "content-container";
@@ -76,7 +76,7 @@ function bookingPage() {
     // Booking Info
     const bookingInfo = document.createElement("p");
     bookingInfo.className = "booking-info";
-    bookingInfo.innerText =
+    bookingInfo.innerText = // booking information
         `
     Currently, all booking goes directly through my Instagram DM's.
 
@@ -115,7 +115,8 @@ function router(path) {
 // Rendering Page
 function renderPage() {
     contentContainer.innerHTML = "";
-    const page = router(window.location.pathname);
+    const path = window.location.hash.slice(1) || "/";
+    const page = router(path);
     contentContainer.appendChild(page);
 }
 // Footer
