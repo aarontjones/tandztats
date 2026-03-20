@@ -96,7 +96,7 @@ function bookingPage(): HTMLElement {
     // Booking Info
     const bookingInfo = document.createElement("p")
     bookingInfo.className = "booking-info"
-    bookingInfo.innerText = 
+    bookingInfo.innerText = // booking information
     `
     Currently, all booking goes directly through my Instagram DM's.
 
@@ -119,6 +119,15 @@ function bookingPage(): HTMLElement {
     bookingContainer.appendChild(instagramLink)
     
     return bookingContainer
+}
+
+// Stuff for redirecting
+
+const params = new URLSearchParams(window.location.search)
+const redirect = params.get("redirect")
+
+if (redirect) {
+  window.history.replaceState({}, "", redirect)
 }
 
 // Router - Switches between pages, sharing title and navbar
