@@ -52,13 +52,41 @@ contentContainer.className = "content-container";
 // Page Functions
 // Home (default)
 function homePage() {
-    // 3 randomly selected images thing goes here above about me
+    // 3 randomly selected IG images
+    const galleryWrapper = document.createElement("div");
+    galleryWrapper.className = "short-gallery-wrapper";
+    // Large image
+    const featuredImage = document.createElement("img");
+    featuredImage.className = "featured-image";
+    featuredImage.src = "./assets/images/place-holder.svg";
+    // Carousel Container
+    const carouselContainer = document.createElement("div");
+    carouselContainer.className = "carousel-container";
+    // Temporary image list
+    const images = [
+        "./assets/images/place-holder.svg",
+        "./assets/images/place-holder.svg",
+        "./assets/images/place-holder.svg"
+    ];
+    // Creating thumbnails
+    images.forEach((src) => {
+        const thumb = document.createElement("img");
+        thumb.src = src;
+        thumb.className = "carousel-thumb";
+        thumb.addEventListener("click", () => {
+            featuredImage.src = src; // changes big image to whatever selected
+        });
+        carouselContainer.appendChild(thumb);
+    });
+    // Assembling first section
+    galleryWrapper.appendChild(featuredImage);
+    galleryWrapper.appendChild(carouselContainer);
     const homeWrapper = document.createElement("div");
     homeWrapper.className = "home-wrapper";
     // Title ABOVE everything
     const aboutTitle = document.createElement("h2");
     aboutTitle.className = "about-title";
-    aboutTitle.innerText = "About Me";
+    aboutTitle.innerText = "About The Artist";
     // Main container (holds text + image)
     const homeContainer = document.createElement("div");
     homeContainer.className = "home-container";
@@ -88,6 +116,7 @@ function homePage() {
     nameCaption.className = "portrait-name";
     nameCaption.innerText = "Harry Tandy";
     // Assemble wrapper
+    homeWrapper.appendChild(galleryWrapper);
     homeWrapper.appendChild(aboutTitle);
     homeWrapper.appendChild(homeContainer);
     homeWrapper.appendChild(nameCaption);
@@ -96,7 +125,17 @@ function homePage() {
 // Gallery
 function galleryPage() {
     const div = document.createElement("div");
-    div.innerText = "Gallery";
+    div.innerText = `
+    Soon, there will be different sections of image split between a few groups.
+
+    Group 1: Flash Art
+
+    Group 2: Tattoos on People
+
+    Group 3: Healed Tattoos
+
+    just need instagram API key and write an algorithm that separates them into groups automatically.
+    `;
     return div;
 }
 // Aftercare
