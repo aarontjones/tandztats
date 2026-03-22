@@ -71,6 +71,12 @@ function homePage(): HTMLElement {
     const div = document.createElement("div")
     div.innerText = "Home"
     return div
+
+    // Random 3 selected images ticker thing idk
+
+    // 2 containers side by side - short about me and portrait image
+
+
 }
 
 // Gallery
@@ -99,8 +105,8 @@ function bookingPage(): HTMLElement {
     bookingInfo.innerText = // booking information
     `
     Currently, all booking goes directly through my Instagram DM's.
-
-    If you would be interested in booking a tattoo, you can click on the instagram logo below to be taken to my instagram account, where we can discuss appointment times.
+    
+    If you would be interested in booking a tattoo, you can click on the Instagram logo below to be taken to my Instagram account, where we can discuss appointment times.
     `
 
     // Instagram link

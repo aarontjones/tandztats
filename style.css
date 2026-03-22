@@ -29,9 +29,9 @@ body {
 /* Title of webpage */
 .main-title {
     font-size: 48px;
-    font-weight: 400;
-    letter-spacing: 15px;
-    font-family: 'Brush Script MT', cursive; /* experiment */
+    letter-spacing: 25px;
+    font-family: 'Brush Script MT'; /* experiment */
+    font-weight: 150; /* I don't know if this does anything w/ Brush Script MT */
 }
 
 .tagline {
@@ -113,9 +113,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    
     text-align: right;
-    
+    text-transform: lowercase;
     padding: 10px;
     font-size: 14px;
 }
