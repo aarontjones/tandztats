@@ -75,7 +75,7 @@ function homePage(): HTMLElement {
     // Large image
     const featuredImage = document.createElement("img")
     featuredImage.className = "featured-image"
-    featuredImage.src = "./assets/images/place-holder.svg"
+    featuredImage.src = "./assets/images/place-holder-1.svg"
 
     // Carousel Container
     const carouselContainer = document.createElement("div")
@@ -83,9 +83,9 @@ function homePage(): HTMLElement {
 
     // Temporary image list
     const images = [
-        "./assets/images/place-holder.svg",
-        "./assets/images/place-holder.svg",
-        "./assets/images/place-holder.svg"
+        "./assets/images/place-holder-1.svg",
+        "./assets/images/place-holder-2.png",
+        "./assets/images/place-holder-3.png"
     ]
 
     // Creating thumbnails
