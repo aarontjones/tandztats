@@ -52,11 +52,46 @@ contentContainer.className = "content-container";
 // Page Functions
 // Home (default)
 function homePage() {
-    const div = document.createElement("div");
-    div.innerText = "Home";
-    return div;
-    // Random 3 selected images ticker thing idk
-    // 2 containers side by side - short about me and portrait image
+    // 3 randomly selected images thing goes here above about me
+    const homeWrapper = document.createElement("div");
+    homeWrapper.className = "home-wrapper";
+    // Title ABOVE everything
+    const aboutTitle = document.createElement("h2");
+    aboutTitle.className = "about-title";
+    aboutTitle.innerText = "About Me";
+    // Main container (holds text + image)
+    const homeContainer = document.createElement("div");
+    homeContainer.className = "home-container";
+    // Left Side - About text
+    const aboutContainer = document.createElement("div");
+    aboutContainer.className = "about-container";
+    const aboutText = document.createElement("p");
+    aboutText.className = "about-text";
+    aboutText.innerText = `
+    Placeholder Text
+
+    Harry Tandy
+    `;
+    aboutContainer.appendChild(aboutText);
+    // Right Side - Image
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "image-container";
+    const portrait = document.createElement("img");
+    portrait.src = "./assets/images/placeholder.svg";
+    portrait.className = "portrait-image";
+    imageContainer.appendChild(portrait);
+    // Append both sides into container
+    homeContainer.appendChild(aboutContainer);
+    homeContainer.appendChild(imageContainer);
+    // Name BELOW the container
+    const nameCaption = document.createElement("p");
+    nameCaption.className = "portrait-name";
+    nameCaption.innerText = "Harry Tandy";
+    // Assemble wrapper
+    homeWrapper.appendChild(aboutTitle);
+    homeWrapper.appendChild(homeContainer);
+    homeWrapper.appendChild(nameCaption);
+    return homeWrapper;
 }
 // Gallery
 function galleryPage() {
@@ -66,9 +101,17 @@ function galleryPage() {
 }
 // Aftercare
 function aftercarePage() {
-    const div = document.createElement("div");
-    div.innerText = "Aftercare";
-    return div;
+    // Same as booking page, so ill reuse CSS elements
+    const aftercareContainer = document.createElement("div");
+    aftercareContainer.className = "booking-container";
+    // Aftercare Info
+    const aftercareInfo = document.createElement("p");
+    aftercareInfo.className = "booking-info";
+    aftercareInfo.innerText = `
+    Placeholder Aftercare Information
+    `;
+    aftercareContainer.appendChild(aftercareInfo);
+    return aftercareContainer;
 }
 // Booking
 function bookingPage() {

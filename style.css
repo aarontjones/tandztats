@@ -12,6 +12,7 @@ body {
 
 .main-container {
     width: 100%;
+    padding-bottom: 40px;
 }
 
 .top-container {
@@ -117,6 +118,71 @@ body {
     text-transform: lowercase;
     padding: 10px;
     font-size: 14px;
+}
+
+/* Home page only */
+/* Home Container */
+
+.home-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+}
+
+/* about container */
+
+.about-container {
+    width: 50%;
+}
+
+.about-title {
+    font-size: 48px;
+    font-family: 'Brush Script MT';
+    margin-bottom: 40px;
+    letter-spacing: 14px;
+    text-align: center;
+}
+
+.about-text {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Portrait container */
+
+.image-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portrait-image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.portrait-name {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 36px;
+    letter-spacing: 6px;
+    font-family: "Brush Script MT";
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
 }
 
 /* booking page only */
