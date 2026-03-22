@@ -102,7 +102,7 @@ function homePage(): HTMLElement {
     imageContainer.className = "image-container"
 
     const portrait = document.createElement("img")
-    portrait.src = "./assets/images/placeholder.svg"
+    portrait.src = "./assets/images/place-holder.svg"
     portrait.className = "portrait-image"
 
     imageContainer.appendChild(portrait)
