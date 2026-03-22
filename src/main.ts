@@ -72,15 +72,6 @@ function homePage(): HTMLElement {
     const galleryWrapper = document.createElement("div")
     galleryWrapper.className = "short-gallery-wrapper"
 
-    // Large image
-    const featuredImage = document.createElement("img")
-    featuredImage.className = "featured-image"
-    featuredImage.src = "./assets/images/place-holder-1.svg"
-
-    // Carousel Container
-    const carouselContainer = document.createElement("div")
-    carouselContainer.className = "carousel-container"
-
     // Temporary image list
     const images = [
         "./assets/images/place-holder-1.svg",
@@ -88,22 +79,14 @@ function homePage(): HTMLElement {
         "./assets/images/place-holder-3.png"
     ]
 
-    // Creating thumbnails
+    // Creating row
     images.forEach((src) => {
-        const thumb = document.createElement("img")
-        thumb.src = src
-        thumb.className = "carousel-thumb"
+        const img = document.createElement("img")
+        img.src = src
+        img.className = "gallery-image"
 
-        thumb.addEventListener("click", () => {
-            featuredImage.src = src // changes big image to whatever selected
-        })
-
-        carouselContainer.appendChild(thumb)
+        galleryWrapper.appendChild(img)
     })
-
-    // Assembling first section
-    galleryWrapper.appendChild(featuredImage)
-    galleryWrapper.appendChild(carouselContainer)
 
     const homeWrapper = document.createElement("div")
     homeWrapper.className = "home-wrapper"
