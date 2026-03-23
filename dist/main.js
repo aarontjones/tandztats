@@ -54,20 +54,32 @@ contentContainer.className = "content-container";
 function homePage() {
     // 3 randomly selected IG images
     const galleryWrapper = document.createElement("div");
-    galleryWrapper.className = "short-gallery-wrapper";
+    galleryWrapper.className = "carousel-wrapper";
     // Temporary image list
     const images = [
         "./assets/images/place-holder-1.svg",
         "./assets/images/place-holder-2.png",
         "./assets/images/place-holder-3.png"
     ];
-    // Creating row
+    // main image
+    const mainImage = document.createElement("img");
+    mainImage.className = "carousel-main";
+    mainImage.src = images[0]; // sets first in array to main image
+    // Thumbnail container
+    const thumbnailContainer = document.createElement("div");
+    thumbnailContainer.className = "carousel-thumbnails";
+    // Creating thumbnails
     images.forEach((src) => {
-        const img = document.createElement("img");
-        img.src = src;
-        img.className = "gallery-image";
-        galleryWrapper.appendChild(img);
+        const thumb = document.createElement("img");
+        thumb.src = src;
+        thumb.className = "carousel-thumb";
+        thumb.addEventListener("click", () => {
+            mainImage.src = src;
+        });
+        thumbnailContainer.appendChild(thumb);
     });
+    galleryWrapper.appendChild(mainImage);
+    galleryWrapper.appendChild(thumbnailContainer);
     const homeWrapper = document.createElement("div");
     homeWrapper.className = "home-wrapper";
     // Title ABOVE everything
@@ -92,7 +104,7 @@ function homePage() {
     const imageContainer = document.createElement("div");
     imageContainer.className = "image-container";
     const portrait = document.createElement("img");
-    portrait.src = "./assets/images/place-holder.svg";
+    portrait.src = "./assets/images/place-holder-1.svg";
     portrait.className = "portrait-image";
     imageContainer.appendChild(portrait);
     // Append both sides into container

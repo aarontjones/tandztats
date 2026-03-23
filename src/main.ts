@@ -70,7 +70,7 @@ contentContainer.className = "content-container"
 function homePage(): HTMLElement {
     // 3 randomly selected IG images
     const galleryWrapper = document.createElement("div")
-    galleryWrapper.className = "short-gallery-wrapper"
+    galleryWrapper.className = "carousel-wrapper"
 
     // Temporary image list
     const images = [
@@ -79,14 +79,30 @@ function homePage(): HTMLElement {
         "./assets/images/place-holder-3.png"
     ]
 
-    // Creating row
-    images.forEach((src) => {
-        const img = document.createElement("img")
-        img.src = src
-        img.className = "gallery-image"
+    // main image
+    const mainImage = document.createElement("img")
+    mainImage.className = "carousel-main"
+    mainImage.src = images[0]! // sets first in array to main image
 
-        galleryWrapper.appendChild(img)
+    // Thumbnail container
+    const thumbnailContainer = document.createElement("div")
+    thumbnailContainer.className = "carousel-thumbnails"
+
+    // Creating thumbnails
+    images.forEach((src) => {
+        const thumb = document.createElement("img")
+        thumb.src = src
+        thumb.className = "carousel-thumb"
+
+        thumb.addEventListener("click", () => {
+            mainImage.src = src
+        })
+
+        thumbnailContainer.appendChild(thumb)
     })
+
+    galleryWrapper.appendChild(mainImage)
+    galleryWrapper.appendChild(thumbnailContainer)
 
     const homeWrapper = document.createElement("div")
     homeWrapper.className = "home-wrapper"
@@ -119,7 +135,7 @@ function homePage(): HTMLElement {
     imageContainer.className = "image-container"
 
     const portrait = document.createElement("img")
-    portrait.src = "./assets/images/place-holder.svg"
+    portrait.src = "./assets/images/place-holder-1.svg"
     portrait.className = "portrait-image"
 
     imageContainer.appendChild(portrait)
