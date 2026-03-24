@@ -280,8 +280,39 @@ body {
 
 /* Section Title */
 .title-wrapper {
-  display: block;      
-  margin-bottom: 15px;  
+    display: block;      
+    margin-bottom: 20px;  
+    margin-top: 30px;
+}
+
+.section-images {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.section-images.expanded {
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.toggle-arrow {
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+.toggle-arrow.rotated {
+    transform: rotate(0deg);
 }
 
 .section-title {
@@ -312,7 +343,6 @@ body {
 .gallery-image {
     width: 100%;
     max-width: 150px;
-    margin-bottom: 40px;
     border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);

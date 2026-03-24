@@ -179,6 +179,13 @@ function galleryPage() {
     const galleryTitle = document.createElement("h2");
     galleryTitle.className = "page-title";
     galleryTitle.innerText = "Gallery";
+    // Gallery Subtext
+    const subtext = document.createElement("p");
+    subtext.className = "subtext";
+    subtext.innerText = `
+    Below is some of my work, separated into Flash Art, Applied Tats and Healed Tats.
+    Simply click on each section to expand or retract.
+    `;
     // Gallery Section
     // I want this section to be split into 3 main parts
     // 1) Flash Art
@@ -192,16 +199,32 @@ function galleryPage() {
         const sectionTitle = document.createElement("h3");
         sectionTitle.className = "section-title";
         sectionTitle.innerText = titleText;
+        // Arrow
+        const arrow = document.createElement("span");
+        arrow.className = "toggle-arrow";
+        arrow.innerText = "▼";
         // Title Wrapper
         const titleWrapper = document.createElement("div");
         titleWrapper.className = "title-wrapper";
         titleWrapper.appendChild(sectionTitle);
+        titleWrapper.appendChild(arrow);
         section.appendChild(titleWrapper);
+        // Image Container (collapsible)
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "section-images";
         // Single Image - Temporary - will be list later
         const image = document.createElement("img");
         image.src = imageSrc;
         image.className = "gallery-image";
-        section.appendChild(image);
+        imageContainer.appendChild(image);
+        section.appendChild(imageContainer);
+        // Click function
+        arrow.addEventListener("click", () => {
+            const isExpanded = imageContainer.classList.contains("expanded");
+            imageContainer.classList.toggle("expanded");
+            // toggle arrow rotation
+            arrow.classList.toggle("rotated");
+        });
         return section;
     }
     // Temp Gallery Information
@@ -217,11 +240,13 @@ function galleryPage() {
 
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `;
+    // Title
+    galleryContainer.appendChild(galleryTitle);
+    galleryContainer.appendChild(subtext);
     // Creating 3 sections
     galleryContainer.appendChild(createGallerySection("Flash Art", "./assets/images/place-holder-1.svg"));
     galleryContainer.appendChild(createGallerySection("Applied Tats", "./assets/images/place-holder-2.png"));
     galleryContainer.appendChild(createGallerySection("Healed Tats", "./assets/images/place-holder-3.png"));
-    galleryContainer.appendChild(galleryTitle);
     galleryContainer.appendChild(tempText);
     return galleryContainer;
 }
