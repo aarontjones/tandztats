@@ -72,6 +72,11 @@ function homePage(): HTMLElement {
     const galleryWrapper = document.createElement("div")
     galleryWrapper.className = "carousel-wrapper"
 
+    // Home Title
+    const homeTitle = document.createElement("h2")
+    homeTitle.className = "page-title"
+    homeTitle.innerText = "Featured Work"
+
     // Temporary image list
     const images = [
         "./assets/images/place-holder-1.svg",
@@ -108,7 +113,7 @@ function homePage(): HTMLElement {
     homeWrapper.className = "home-wrapper"
 
     // Title ABOVE everything
-    const aboutTitle = document.createElement("h2")
+    const aboutTitle = document.createElement("h3")
     aboutTitle.className = "about-title"
     aboutTitle.innerText = "About The Artist"
 
@@ -123,9 +128,9 @@ function homePage(): HTMLElement {
     const aboutText = document.createElement("p")
     aboutText.className = "about-text"
     aboutText.innerText = `
-    Placeholder Text
+    I am a Fineline artist
 
-    Harry Tandy
+    Other stuff goes here.
     `
 
     aboutContainer.appendChild(aboutText)
@@ -150,6 +155,7 @@ function homePage(): HTMLElement {
     nameCaption.innerText = "Harry Tandy"
 
     // Assemble wrapper
+    homeWrapper.appendChild(homeTitle)
     homeWrapper.appendChild(galleryWrapper)
     homeWrapper.appendChild(aboutTitle)
     homeWrapper.appendChild(homeContainer)
@@ -160,8 +166,18 @@ function homePage(): HTMLElement {
 
 // Gallery
 function galleryPage(): HTMLElement {
-    const div = document.createElement("div")
-    div.innerText = `
+    // Same as booking page, so ill reuse CSS elements
+    const galleryContainer = document.createElement("div")
+    galleryContainer.className = "booking-container"
+
+    // Gallery Title
+    const galleryTitle = document.createElement("h2")
+    galleryTitle.className = "page-title"
+    galleryTitle.innerText = "Gallery"
+
+    // Temp Gallery Information
+    const tempText = document.createElement("p")
+    tempText.innerText = `
     Soon, there will be different sections of image split between a few groups.
 
     Group 1: Flash Art
@@ -172,7 +188,11 @@ function galleryPage(): HTMLElement {
 
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `
-    return div
+
+    galleryContainer.appendChild(galleryTitle)
+    galleryContainer.appendChild(tempText)
+
+    return galleryContainer
 }
 
 // Aftercare
@@ -181,6 +201,11 @@ function aftercarePage(): HTMLElement {
     const aftercareContainer = document.createElement("div")
     aftercareContainer.className = "booking-container"
 
+    // Aftercare Title
+    const aftercareTitle = document.createElement("h2")
+    aftercareTitle.className = "page-title"
+    aftercareTitle.innerText = "Aftercare"
+
     // Aftercare Info
     const aftercareInfo = document.createElement("p")
     aftercareInfo.className = "booking-info"
@@ -188,6 +213,7 @@ function aftercarePage(): HTMLElement {
     Placeholder Aftercare Information
     `
 
+    aftercareContainer.appendChild(aftercareTitle)
     aftercareContainer.appendChild(aftercareInfo)
 
     return aftercareContainer
@@ -198,6 +224,11 @@ function bookingPage(): HTMLElement {
     // For booking, I want a simple box with information about booking, including an Instagram link
     const bookingContainer = document.createElement("div")
     bookingContainer.className = "booking-container"
+
+    // Booking Title
+    const bookingTitle = document.createElement("h2")
+    bookingTitle.className = "page-title"
+    bookingTitle.innerText = "Booking"
 
     // Booking Info
     const bookingInfo = document.createElement("p")
@@ -221,6 +252,7 @@ function bookingPage(): HTMLElement {
 
     instagramLink.appendChild(instagramIcon)
 
+    bookingContainer.appendChild(bookingTitle)
     bookingContainer.appendChild(bookingInfo)
     bookingContainer.appendChild(instagramLink)
     
