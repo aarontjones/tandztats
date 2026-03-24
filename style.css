@@ -149,9 +149,7 @@ body {
     text-align: center;
 }
 
-
 /* Home page only */
-
 /* Short Gallery Section */
 .carousel-wrapper {
     width: 800px;
@@ -174,6 +172,10 @@ body {
     /* Transition fade */
     transition: opacity 0.7s ease-in-out;
     opacity: 1;
+}
+
+.carousel-main:hover {
+    border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .carousel-thumbnails {
@@ -270,6 +272,56 @@ body {
 }
 
 /* Gallery Page Only */
+.gallery-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Section Title */
+.title-wrapper {
+  display: block;      
+  margin-bottom: 15px;  
+}
+
+.section-title {
+    font-family: 'Grenze Gotisch', cursive;
+    font-size: 24px;
+    letter-spacing: 12px;
+    position: relative;
+    display: inline-block;
+    width: max-content;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 0%;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease;
+}
+
+.gallery-section:hover .section-title::after {
+    width: 100%;
+}
+
+/* Gallery Images */
+.gallery-image {
+    width: 100%;
+    max-width: 150px;
+    margin-bottom: 40px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    opacity: 0.7;
+}
+
+.gallery-image:hover {
+    opacity: 1;
+}
 
 /* Aftercare Page Only */
 
@@ -287,7 +339,6 @@ body {
 }
 
 /* Shared Link and Icon Stuff */
-
 .centered-link {
     align-self: center;
 }

@@ -220,14 +220,47 @@ function homePage(): HTMLElement {
 
 // Gallery
 function galleryPage(): HTMLElement {
-    // Same as booking page, so ill reuse CSS elements
+    // Same as booking page, just wider
     const galleryContainer = document.createElement("div")
-    galleryContainer.className = "booking-container"
+    galleryContainer.className = "gallery-container"
 
     // Gallery Title
     const galleryTitle = document.createElement("h2")
     galleryTitle.className = "page-title"
     galleryTitle.innerText = "Gallery"
+
+    // Gallery Section
+    // I want this section to be split into 3 main parts
+    // 1) Flash Art
+    // 2) Tattoos on People
+    // 3) Healed Tattoos
+    // A function will be needed to create these sections
+
+    function createGallerySection(titleText: string, imageSrc: string): HTMLElement {
+        const section = document.createElement("div")
+        section.className = "gallery-section"
+
+        // Title
+        const sectionTitle = document.createElement("h3")
+        sectionTitle.className = "section-title"
+        sectionTitle.innerText = titleText
+
+        // Title Wrapper
+        const titleWrapper = document.createElement("div")
+        titleWrapper.className = "title-wrapper"
+
+        titleWrapper.appendChild(sectionTitle)
+        section.appendChild(titleWrapper)
+
+        // Single Image - Temporary - will be list later
+        const image = document.createElement("img")
+        image.src = imageSrc
+        image.className = "gallery-image"
+
+        section.appendChild(image)
+
+        return section
+    }
 
     // Temp Gallery Information
     const tempText = document.createElement("p")
@@ -242,6 +275,11 @@ function galleryPage(): HTMLElement {
 
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `
+
+    // Creating 3 sections
+    galleryContainer.appendChild(createGallerySection("Flash Art", "./assets/images/place-holder-1.svg"))
+    galleryContainer.appendChild(createGallerySection("Applied Tats", "./assets/images/place-holder-2.png"))
+    galleryContainer.appendChild(createGallerySection("Healed Tats", "./assets/images/place-holder-3.png"))
 
     galleryContainer.appendChild(galleryTitle)
     galleryContainer.appendChild(tempText)
@@ -266,7 +304,7 @@ function aftercarePage(): HTMLElement {
     aftercareInfo.innerText = `
     Placeholder Aftercare Information
 
-    If needed, you can download this page below.
+    If needed, there is a downloadable version of this page, below.
     `
 
     // Printing Page
