@@ -205,12 +205,15 @@ function homePage(): HTMLElement {
     nameCaption.className = "portrait-name"
     nameCaption.innerText = "Harry Tandy"
 
+    // Add Name below portrait
+    imageContainer.appendChild(nameCaption)
+
     // Assemble wrapper
     homeWrapper.appendChild(homeTitle)
     homeWrapper.appendChild(galleryWrapper)
     homeWrapper.appendChild(aboutTitle)
     homeWrapper.appendChild(homeContainer)
-    homeWrapper.appendChild(nameCaption)
+    
 
     return homeWrapper
 }
@@ -262,10 +265,30 @@ function aftercarePage(): HTMLElement {
     aftercareInfo.className = "booking-info"
     aftercareInfo.innerText = `
     Placeholder Aftercare Information
+
+    If needed, you can download this page below.
     `
+
+    // Printing Page
+    const printPage = document.createElement("a")
+    printPage.href = "#"
+    printPage.className = "centered-link"
+
+    const printIcon = document.createElement("img")
+    printIcon.src = "./assets/icons/print.svg"
+    printIcon.className = "centered-icon"
+
+    printPage.appendChild(printIcon)
+
+    // Allow Printing of the page
+    printPage.addEventListener("click", (e) => {
+        e.preventDefault() // Prevent Default Link Behaviour
+        window.print()
+    })
 
     aftercareContainer.appendChild(aftercareTitle)
     aftercareContainer.appendChild(aftercareInfo)
+    aftercareContainer.appendChild(printPage) // Print Symbol
 
     return aftercareContainer
 }
@@ -295,11 +318,11 @@ function bookingPage(): HTMLElement {
     const instagramLink = document.createElement("a")
     instagramLink.href = "https://www.instagram.com/tandz.tat/"
     instagramLink.target = "_blank"
-    instagramLink.className = "instagram-link"
+    instagramLink.className = "centered-link"
 
     const instagramIcon = document.createElement("img")
     instagramIcon.src = "./assets/icons/instagram.svg"
-    instagramIcon.className = "instagram-icon"
+    instagramIcon.className = "centered-icon"
 
     instagramLink.appendChild(instagramIcon)
 

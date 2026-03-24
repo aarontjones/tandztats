@@ -218,7 +218,7 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
-    width: 100%;
+    width: 75%;
 }
 
 /* about container */
@@ -253,7 +253,7 @@ body {
 .portrait-image {
     width: 100%;
     max-width: 300px;
-    border-radius: 20px;
+    border-radius: 500px; /* Circular */
     object-fit: cover;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
@@ -286,11 +286,13 @@ body {
     padding-bottom: 60px;
 }
 
-.instagram-link {
+/* Shared Link and Icon Stuff */
+
+.centered-link {
     align-self: center;
 }
 
-.instagram-icon {
+.centered-icon {
     max-width: 30px;
     max-height: 30px;
 }
