@@ -171,6 +171,9 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     margin-bottom: 15px;
+    /* Transition fade */
+    transition: opacity 0.7s ease-in-out;
+    opacity: 1;
 }
 
 .carousel-thumbnails {
@@ -187,22 +190,15 @@ body {
     opacity: 0.7;
     transition: all 0.3s ease;
     transform: skewX(-15deg);
-    border: 1px solid black;
+    transition: border 0.7s ease-in-out, opacity 0.3s ease-in-out;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Cleaning up borders on carousel thumbnails */
-.carousel-thumb:nth-child(1) {
-    border-right: none;
-}
-
-.carousel-thumb:nth-child(2) {
-    border-left: none;
-    border-right: none;
-}
-
-.carousel-thumb:nth-child(3) {
-    border-left: none;
+/* Highlighting Selected Thumbnail */
+.carousel-thumb.selected {
+    border: 1px solid rgba(0,0,0,0.4);
+    opacity: 1;
+    transition: border 0.7s ease-in-out, opacity 0.7s ease-in-out;
 }
 
 .carousel-thumb:hover {
@@ -210,7 +206,6 @@ body {
 }
 
 /* Home Container */
-
 .home-wrapper {
     width: 100%;
     display: flex;

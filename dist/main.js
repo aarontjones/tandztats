@@ -52,6 +52,7 @@ contentContainer.className = "content-container";
 // Page Functions
 // Home (default)
 function homePage() {
+    var _a;
     // 3 randomly selected IG images
     const galleryWrapper = document.createElement("div");
     galleryWrapper.className = "carousel-wrapper";
@@ -72,18 +73,60 @@ function homePage() {
     // Thumbnail container
     const thumbnailContainer = document.createElement("div");
     thumbnailContainer.className = "carousel-thumbnails";
+    // Indexing and showing main image
+    let currentIndex = 0;
+    let autoScroll;
+    function showImage(index) {
+        var _a;
+        // Removing 'selected' from all thumbnails
+        const thumbnails = thumbnailContainer.querySelectorAll(".carousel-thumb");
+        thumbnails.forEach((thumb) => thumb.classList.remove("selected"));
+        // Adding 'selected' class to current thumbnail
+        (_a = thumbnails[index]) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
+        mainImage.style.opacity = "0"; // Fade Out
+        setTimeout(() => {
+            mainImage.src = images[index];
+            mainImage.style.opacity = "1"; // Fade In
+            currentIndex = index;
+        }, 250); // Transition Duration
+    }
+    // Staring autoscroll for every 7 seconds
+    function startAutoScroll() {
+        autoScroll = setInterval(() => {
+            const nextIndex = (currentIndex + 1) % images.length;
+            showImage(nextIndex);
+        }, 7000); // Every 7 seconds, it scrolls
+    }
+    // Reseting auto scroll whenever clicking on thumbnail
+    function resetAutoScroll() {
+        clearInterval(autoScroll);
+        startAutoScroll();
+    }
     // Creating thumbnails
-    images.forEach((src) => {
+    images.forEach((src, index) => {
         const thumb = document.createElement("img");
         thumb.src = src;
         thumb.className = "carousel-thumb";
         thumb.addEventListener("click", () => {
-            mainImage.src = src;
+            showImage(index);
+            resetAutoScroll();
         });
         thumbnailContainer.appendChild(thumb);
     });
+    // Initial thumbnail border
+    (_a = thumbnailContainer.querySelector(".carousel-thumb")) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
     galleryWrapper.appendChild(mainImage);
     galleryWrapper.appendChild(thumbnailContainer);
+    // Pausing and resuming on mouse hover and exit
+    mainImage.addEventListener("mouseenter", () => {
+        clearInterval(autoScroll);
+    });
+    mainImage.addEventListener("mouseleave", () => {
+        startAutoScroll();
+    });
+    // Initial Auto-scroll
+    startAutoScroll();
+    // Homewrapper
     const homeWrapper = document.createElement("div");
     homeWrapper.className = "home-wrapper";
     // Title ABOVE everything
