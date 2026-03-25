@@ -354,6 +354,29 @@ body {
 }
 
 /* Aftercare Page Only */
+/* Printing stuff - shortens page*/
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .content-container,
+    .content-container * {
+        visibility: visible;
+    }
+
+    .content-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        padding: 20px;
+    }
+}
+
+
 
 /* Booking Page Only */
 /* Booking container */

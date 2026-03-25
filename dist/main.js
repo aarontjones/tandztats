@@ -142,9 +142,11 @@ function homePage() {
     const aboutText = document.createElement("p");
     aboutText.className = "about-text";
     aboutText.innerText = `
-    I am a Fineline artist
+    I am Harry Tandy, a Bristol and Exeter based tattoo artist.
 
-    Other stuff goes here.
+    I specialise in ________
+
+    I began tattoing ________
     `;
     aboutContainer.appendChild(aboutText);
     // Right Side - Image
@@ -263,9 +265,23 @@ function aftercarePage() {
     const aftercareInfo = document.createElement("p");
     aftercareInfo.className = "booking-info";
     aftercareInfo.innerText = `
-    Placeholder Aftercare Information
+    After our session, there are a few rules you will have to follow, to ensure that your fresh tattoo heals in properly.
 
-    If needed, there is a downloadable version of this page, below.
+    1) 
+
+    Take off the second skin 2 days after our session, and wash gently with warm water and unscented soap.
+    If you use a Loofah in the shower, be careful not to rub on the area.
+
+    2)
+
+    Moisturise the area twice a day for 1 week, after the second skin is removed: Once in the morning and once in the evening. I recommend using Natural Cocoa Butter.
+    If the tattoo gets itchy at all - Do not itch, or else some of the ink will peel off. Same as before, do not rub too harshly with a Loofah or any other shower brush.
+
+    3) 
+
+    After the week of moisturising, be sure to protect the tattoo from the sun with either sun cream, or covering it up. Do this for at least a month.
+    In due time, I will ask for pictures or checkups for how the tattoo is healing. If bits are fading, or the tattoo has completely failed to heal in, I can provide free touch-up sessions
+    If needed, there is a downloadable version of this page below.
     `;
     // Printing Page
     const printPage = document.createElement("a");
