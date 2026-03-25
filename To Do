@@ -1,16 +1,23 @@
-1) Do Gallery section w/ auto filtering
+1) Get harry to look over / write about me, and aftercare section(s)
 
-2) Get harry to write, or tell me what to write for aftercare, booking, and about me section(s)
+2) Put Instagram logo and thing next to page title - centre properly - hyperlinks to IG page
 
-WHEN API KEY ACQUIRED:
+3) Write up github action to update gallery section - For a placeholder while api link not get - use direct path links to placeholder images in local storage and store in JSON file
 
-UPDATE LINK ON BOOKING PAGE TO GO DIRECTLY TO INSTAGRAM DMS
+4) Replace code to load preset images in gallery section with a json file, made / updated by Github Action.
 
-GALLERY SECTION W/ AUTO FILTERED SECTIONS
+4) With predownloaded images from each gallery section - setup python / ts script to determine if an image, along with comments, are Flash Art, Applied Tats or Healed tats
 
-3) fix code for viewing on phones
+WHEN API KEY GET:
 
-4) Profit????
+X) properly set up github action to update json file with all images, likes and description.
 
+X) Replace link on booking page to go directly to Instagram DM's instead of the page
 
+Last but not least:
 
+x) Fix code for viewing on phones
+
+x) Connect Domain Name
+
+x) Done
