@@ -220,7 +220,7 @@ function homePage(): HTMLElement {
 }
 
 // Gallery
-function galleryPage(): HTMLElement {
+async function galleryPage(): Promise<HTMLElement> {
     // Same as booking page, just wider
     const galleryContainer = document.createElement("div")
     galleryContainer.className = "gallery-container"
@@ -238,6 +238,14 @@ function galleryPage(): HTMLElement {
     Simply click on each section to expand or retract.
     `
 
+    // Appending Gallery Container
+    galleryContainer.appendChild(galleryTitle)
+    galleryContainer.appendChild(subtext)
+
+    // Reading from Json file
+    const res = await fetch("./data/gallery.json")
+    const data = await res.json()
+
     // Gallery Section
     // I want this section to be split into 3 main parts
     // 1) Flash Art
@@ -245,7 +253,7 @@ function galleryPage(): HTMLElement {
     // 3) Healed Tattoos
     // A function will be needed to create these sections
 
-    function createGallerySection(titleText: string, imageSrc: string): HTMLElement {
+    function createGallerySection(titleText: string, images: any[]): HTMLElement {
         const section = document.createElement("div")
         section.className = "gallery-section"
 
@@ -272,13 +280,20 @@ function galleryPage(): HTMLElement {
         const imageContainer = document.createElement("div")
         imageContainer.className = "section-images"
 
-        // Single Image - Temporary - will be list later
-        const image = document.createElement("img")
-        image.src = imageSrc
-        image.className = "gallery-image"
+        images.forEach(img => {
+            const image = document.createElement("img")
+            image.src = img.src
+            image.className = "gallery-image"
 
-        imageContainer.appendChild(image)
-        section.appendChild(imageContainer)
+            const caption = document.createElement("p")
+            caption.innerText = img.description
+
+            const wrapper = document.createElement("div")
+            wrapper.appendChild(image)
+            wrapper.appendChild(caption)
+
+            imageContainer.appendChild(wrapper)
+        })
 
         // Click function
         arrow.addEventListener("click", () => {
@@ -289,6 +304,7 @@ function galleryPage(): HTMLElement {
             arrow.classList.toggle("rotated");
         })
 
+        section.appendChild(imageContainer)
         return section
     }
 
@@ -306,14 +322,10 @@ function galleryPage(): HTMLElement {
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `
 
-    // Title
-    galleryContainer.appendChild(galleryTitle)
-    galleryContainer.appendChild(subtext)
-
     // Creating 3 sections
-    galleryContainer.appendChild(createGallerySection("Flash Art", "./assets/images/place-holder-1.svg"))
-    galleryContainer.appendChild(createGallerySection("Applied Tats", "./assets/images/place-holder-2.png"))
-    galleryContainer.appendChild(createGallerySection("Healed Tats", "./assets/images/place-holder-3.png"))
+    galleryContainer.appendChild(createGallerySection("Flash Art", data.flash))
+    galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied))
+    galleryContainer.appendChild(createGallerySection("Healed Tats", data.healed))
 
     galleryContainer.appendChild(tempText)
 
@@ -419,7 +431,7 @@ function bookingPage(): HTMLElement {
 }
 
 // Router - Switches between pages, sharing title and navbar
-function router(path: string): HTMLElement {
+async function router(path: string): Promise<HTMLElement> {
     switch (path) {
         case "/":
             return homePage()
@@ -449,10 +461,10 @@ instagramIcon.className = "footer-icon"
 footerInstagramLink.appendChild(instagramIcon)
 
 // Rendering Page
-function renderPage() {
+async function renderPage() {
     contentContainer.innerHTML = ""
     const path = window.location.hash.slice(1) || "/"
-    const page = router(path)
+    const page = await router(path)
     contentContainer.appendChild(page)
     // If Page is booking, dont show footer ig link - do this cause link in booking goes directly to DM's
     if (path !== "/booking") {

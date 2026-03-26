@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const app = document.getElementById("app"); // Start app
 if (!app)
     throw new Error("App container not found");
@@ -174,64 +183,77 @@ function homePage() {
 }
 // Gallery
 function galleryPage() {
-    // Same as booking page, just wider
-    const galleryContainer = document.createElement("div");
-    galleryContainer.className = "gallery-container";
-    // Gallery Title
-    const galleryTitle = document.createElement("h2");
-    galleryTitle.className = "page-title";
-    galleryTitle.innerText = "Gallery";
-    // Gallery Subtext
-    const subtext = document.createElement("p");
-    subtext.className = "subtext";
-    subtext.innerText = `
+    return __awaiter(this, void 0, void 0, function* () {
+        // Same as booking page, just wider
+        const galleryContainer = document.createElement("div");
+        galleryContainer.className = "gallery-container";
+        // Gallery Title
+        const galleryTitle = document.createElement("h2");
+        galleryTitle.className = "page-title";
+        galleryTitle.innerText = "Gallery";
+        // Gallery Subtext
+        const subtext = document.createElement("p");
+        subtext.className = "subtext";
+        subtext.innerText = `
     Below is some of my work, separated into Flash Art, Applied Tats and Healed Tats.
     Simply click on each section to expand or retract.
     `;
-    // Gallery Section
-    // I want this section to be split into 3 main parts
-    // 1) Flash Art
-    // 2) Tattoos on People
-    // 3) Healed Tattoos
-    // A function will be needed to create these sections
-    function createGallerySection(titleText, imageSrc) {
-        const section = document.createElement("div");
-        section.className = "gallery-section";
-        // Title
-        const sectionTitle = document.createElement("h3");
-        sectionTitle.className = "section-title";
-        sectionTitle.innerText = titleText;
-        // Arrow
-        const arrow = document.createElement("span");
-        arrow.className = "toggle-arrow";
-        arrow.innerText = "▼";
-        // Title Wrapper
-        const titleWrapper = document.createElement("div");
-        titleWrapper.className = "title-wrapper";
-        titleWrapper.appendChild(sectionTitle);
-        titleWrapper.appendChild(arrow);
-        section.appendChild(titleWrapper);
-        // Image Container (collapsible)
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "section-images";
-        // Single Image - Temporary - will be list later
-        const image = document.createElement("img");
-        image.src = imageSrc;
-        image.className = "gallery-image";
-        imageContainer.appendChild(image);
-        section.appendChild(imageContainer);
-        // Click function
-        arrow.addEventListener("click", () => {
-            const isExpanded = imageContainer.classList.contains("expanded");
-            imageContainer.classList.toggle("expanded");
-            // toggle arrow rotation
-            arrow.classList.toggle("rotated");
-        });
-        return section;
-    }
-    // Temp Gallery Information
-    const tempText = document.createElement("p");
-    tempText.innerText = `
+        // Appending Gallery Container
+        galleryContainer.appendChild(galleryTitle);
+        galleryContainer.appendChild(subtext);
+        // Reading from Json file
+        const res = yield fetch("./data/gallery.json");
+        const data = yield res.json();
+        // Gallery Section
+        // I want this section to be split into 3 main parts
+        // 1) Flash Art
+        // 2) Tattoos on People
+        // 3) Healed Tattoos
+        // A function will be needed to create these sections
+        function createGallerySection(titleText, images) {
+            const section = document.createElement("div");
+            section.className = "gallery-section";
+            // Title
+            const sectionTitle = document.createElement("h3");
+            sectionTitle.className = "section-title";
+            sectionTitle.innerText = titleText;
+            // Arrow
+            const arrow = document.createElement("span");
+            arrow.className = "toggle-arrow";
+            arrow.innerText = "▼";
+            // Title Wrapper
+            const titleWrapper = document.createElement("div");
+            titleWrapper.className = "title-wrapper";
+            titleWrapper.appendChild(sectionTitle);
+            titleWrapper.appendChild(arrow);
+            section.appendChild(titleWrapper);
+            // Image Container (collapsible)
+            const imageContainer = document.createElement("div");
+            imageContainer.className = "section-images";
+            images.forEach(img => {
+                const image = document.createElement("img");
+                image.src = img.src;
+                image.className = "gallery-image";
+                const caption = document.createElement("p");
+                caption.innerText = img.description;
+                const wrapper = document.createElement("div");
+                wrapper.appendChild(image);
+                wrapper.appendChild(caption);
+                imageContainer.appendChild(wrapper);
+            });
+            // Click function
+            arrow.addEventListener("click", () => {
+                const isExpanded = imageContainer.classList.contains("expanded");
+                imageContainer.classList.toggle("expanded");
+                // toggle arrow rotation
+                arrow.classList.toggle("rotated");
+            });
+            section.appendChild(imageContainer);
+            return section;
+        }
+        // Temp Gallery Information
+        const tempText = document.createElement("p");
+        tempText.innerText = `
     Soon, there will be different sections of image split between a few groups.
 
     Group 1: Flash Art
@@ -242,15 +264,13 @@ function galleryPage() {
 
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `;
-    // Title
-    galleryContainer.appendChild(galleryTitle);
-    galleryContainer.appendChild(subtext);
-    // Creating 3 sections
-    galleryContainer.appendChild(createGallerySection("Flash Art", "./assets/images/place-holder-1.svg"));
-    galleryContainer.appendChild(createGallerySection("Applied Tats", "./assets/images/place-holder-2.png"));
-    galleryContainer.appendChild(createGallerySection("Healed Tats", "./assets/images/place-holder-3.png"));
-    galleryContainer.appendChild(tempText);
-    return galleryContainer;
+        // Creating 3 sections
+        galleryContainer.appendChild(createGallerySection("Flash Art", data.flash));
+        galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied));
+        galleryContainer.appendChild(createGallerySection("Healed Tats", data.healed));
+        galleryContainer.appendChild(tempText);
+        return galleryContainer;
+    });
 }
 // Aftercare
 function aftercarePage() {
@@ -335,20 +355,22 @@ function bookingPage() {
 }
 // Router - Switches between pages, sharing title and navbar
 function router(path) {
-    switch (path) {
-        case "/":
-            return homePage();
-        case "/gallery":
-            return galleryPage();
-        case "/aftercare":
-            return aftercarePage();
-        case "/booking":
-            return bookingPage();
-        default:
-            const div = document.createElement("div");
-            div.innerText = "404 Not Found";
-            return div;
-    }
+    return __awaiter(this, void 0, void 0, function* () {
+        switch (path) {
+            case "/":
+                return homePage();
+            case "/gallery":
+                return galleryPage();
+            case "/aftercare":
+                return aftercarePage();
+            case "/booking":
+                return bookingPage();
+            default:
+                const div = document.createElement("div");
+                div.innerText = "404 Not Found";
+                return div;
+        }
+    });
 }
 // Instagram Link for footer for every page - in contentcontainer
 const footerInstagramLink = document.createElement("a");
@@ -361,14 +383,16 @@ instagramIcon.className = "footer-icon";
 footerInstagramLink.appendChild(instagramIcon);
 // Rendering Page
 function renderPage() {
-    contentContainer.innerHTML = "";
-    const path = window.location.hash.slice(1) || "/";
-    const page = router(path);
-    contentContainer.appendChild(page);
-    // If Page is booking, dont show footer ig link
-    if (path !== "/booking") {
-        contentContainer.appendChild(footerInstagramLink);
-    }
+    return __awaiter(this, void 0, void 0, function* () {
+        contentContainer.innerHTML = "";
+        const path = window.location.hash.slice(1) || "/";
+        const page = yield router(path);
+        contentContainer.appendChild(page);
+        // If Page is booking, dont show footer ig link - do this cause link in booking goes directly to DM's
+        if (path !== "/booking") {
+            contentContainer.appendChild(footerInstagramLink);
+        }
+    });
 }
 // Footer
 const footer = document.createElement("div");
