@@ -18,10 +18,9 @@ const titleContainer = document.createElement("div")
 titleContainer.className = "title-container"
 
 // Title and tagline
-
 const mainTitle = document.createElement("h2")
 mainTitle.className = "main-title"
-mainTitle.innerText = "Tandz Tats"
+mainTitle.innerText = "Tandz-Tat"
 
 const tagline = document.createElement("p")
 tagline.className = "tagline"
@@ -61,7 +60,7 @@ const galleryItem = createNavItem("Gallery", "#/gallery")
 const aftercareItem = createNavItem("Aftercare", "#/aftercare")
 const bookingItem = createNavItem("Booking", "#/booking")
 
-// Content Container
+// Content Container - container for all different pages
 const contentContainer = document.createElement("div")
 contentContainer.className = "content-container"
 
@@ -156,7 +155,7 @@ function homePage(): HTMLElement {
         startAutoScroll()
     })
 
-    // Initial Auto-scroll
+    // Starting Initial Auto-scroll
     startAutoScroll()
 
     // Homewrapper
@@ -437,12 +436,28 @@ function router(path: string): HTMLElement {
     }
 }
 
+// Instagram Link for footer for every page - in contentcontainer
+const footerInstagramLink = document.createElement("a")
+footerInstagramLink.href = "https://www.instagram.com/tandz.tat/"
+footerInstagramLink.target = "_blank"
+footerInstagramLink.className = "footer-link"
+
+const instagramIcon = document.createElement("img")
+instagramIcon.src = "./assets/icons/instagram.svg"
+instagramIcon.className = "footer-icon"
+
+footerInstagramLink.appendChild(instagramIcon)
+
 // Rendering Page
 function renderPage() {
     contentContainer.innerHTML = ""
     const path = window.location.hash.slice(1) || "/"
     const page = router(path)
     contentContainer.appendChild(page)
+    // If Page is booking, dont show footer ig link - do this cause link in booking goes directly to DM's
+    if (path !== "/booking") {
+        contentContainer.appendChild(footerInstagramLink)
+    }
 }
 
 // Footer

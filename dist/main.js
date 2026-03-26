@@ -15,7 +15,7 @@ titleContainer.className = "title-container";
 // Title and tagline
 const mainTitle = document.createElement("h2");
 mainTitle.className = "main-title";
-mainTitle.innerText = "Tandz Tats";
+mainTitle.innerText = "Tandz-Tat";
 const tagline = document.createElement("p");
 tagline.className = "tagline";
 tagline.innerText = "fineline tattoo artist";
@@ -46,7 +46,7 @@ const homeItem = createNavItem("Home", "#/");
 const galleryItem = createNavItem("Gallery", "#/gallery");
 const aftercareItem = createNavItem("Aftercare", "#/aftercare");
 const bookingItem = createNavItem("Booking", "#/booking");
-// Content Container
+// Content Container - container for all different pages
 const contentContainer = document.createElement("div");
 contentContainer.className = "content-container";
 // Page Functions
@@ -124,7 +124,7 @@ function homePage() {
     mainImage.addEventListener("mouseleave", () => {
         startAutoScroll();
     });
-    // Initial Auto-scroll
+    // Starting Initial Auto-scroll
     startAutoScroll();
     // Homewrapper
     const homeWrapper = document.createElement("div");
@@ -350,12 +350,25 @@ function router(path) {
             return div;
     }
 }
+// Instagram Link for footer for every page - in contentcontainer
+const footerInstagramLink = document.createElement("a");
+footerInstagramLink.href = "https://www.instagram.com/tandz.tat/";
+footerInstagramLink.target = "_blank";
+footerInstagramLink.className = "footer-link";
+const instagramIcon = document.createElement("img");
+instagramIcon.src = "./assets/icons/instagram.svg";
+instagramIcon.className = "footer-icon";
+footerInstagramLink.appendChild(instagramIcon);
 // Rendering Page
 function renderPage() {
     contentContainer.innerHTML = "";
     const path = window.location.hash.slice(1) || "/";
     const page = router(path);
     contentContainer.appendChild(page);
+    // If Page is booking, dont show footer ig link
+    if (path !== "/booking") {
+        contentContainer.appendChild(footerInstagramLink);
+    }
 }
 // Footer
 const footer = document.createElement("div");

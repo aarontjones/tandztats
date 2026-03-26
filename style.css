@@ -28,6 +28,9 @@ body {
 }
 
 .title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 70px;
 }
 
@@ -99,6 +102,7 @@ body {
 .content-container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     position: relative;
 
@@ -397,6 +401,14 @@ body {
 }
 
 .centered-icon {
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+/* IG link at the bottom of each screen */
+
+.footer-icon {
+    max-width: 50px;
+    max-height: 50px;
+    margin-top: 50px
 }
