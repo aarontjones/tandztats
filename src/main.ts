@@ -515,7 +515,14 @@ topContainer.appendChild(navbarContainer)
 
 mainContainer.appendChild(topContainer)
 mainContainer.appendChild(contentContainer)
-mainContainer.appendChild(footer)
+
+// Wrapping footer in for better layour
+const footerContainer = document.createElement("div")
+footerContainer.className = "footer-container"
+
+footerContainer.appendChild(footer)
+
+mainContainer.appendChild(footerContainer)
 
 // Assemble Page
 container.appendChild(mainContainer)
