@@ -243,7 +243,7 @@ async function galleryPage(): Promise<HTMLElement> {
     galleryContainer.appendChild(subtext)
 
     // Reading from Json file
-    const res = await fetch("./data/gallery.json")
+    const res = await fetch("/data/gallery.json")
     const data = await res.json()
 
     // Gallery Section
