@@ -1,10 +1,6 @@
 1) Get harry to look over / write about me, and aftercare section(s)
 
-2) Write up github action to update gallery section - For a placeholder while api link not get - use direct path links to placeholder images in local storage and store in JSON file
-
-3) Replace code to load preset images in gallery section with a json file, made / updated by Github Action.
-
-4) With predownloaded images from each gallery section - setup python / ts script to determine if an image, along with comments, are Flash Art, Applied Tats or Healed tats
+2) With predownloaded images from each gallery section - setup python / ts script to determine if an image, along with comments, are Flash Art, Applied Tats or Healed tats
 
 WHEN API KEY GET:
 
