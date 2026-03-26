@@ -1,0 +1,24 @@
+name: Update Gallery
+
+on:
+  schedule:
+    - cron: "0 * * * *" # every hour
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate gallery JSON
+        run: node scripts/generateGallery.js
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/gallery.json
+          git commit -m "Update gallery"
+          git push
