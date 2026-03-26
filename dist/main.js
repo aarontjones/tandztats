@@ -262,14 +262,11 @@ function galleryPage() {
 
     Group 2: Tattoos on People
 
-    Group 3: Healed Tattoos
-
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `;
         // Creating 3 sections
         galleryContainer.appendChild(createGallerySection("Flash Art", data.flash));
         galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied));
-        galleryContainer.appendChild(createGallerySection("Healed Tats", data.healed));
         galleryContainer.appendChild(tempText);
         return galleryContainer;
     });

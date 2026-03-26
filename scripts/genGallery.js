@@ -25,14 +25,9 @@ const gallery = {
     src: `./assets/images/${file}`,
     description: formatDescription(file)
   })),
-
-  healed: placeholders.map(file => ({
-    src: `./assets/images/${file}`,
-    description: formatDescription(file)
-  }))
 }
 
 // Write to JSON
 fs.writeFileSync("./data/gallery.json", JSON.stringify(gallery, null, 2))
 
-console.log("gallery.json generated ✅")
+console.log("gallery.json generated")
