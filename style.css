@@ -351,10 +351,54 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     opacity: 0.7;
+    cursor: pointer;
 }
 
 .gallery-image:hover {
     opacity: 1;
+}
+
+/* Modal Overlay */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.85);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    z-index: 999; /* Makes certain its above all elements */
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-image {
+    max-width: 80%;
+    max-height: 70%;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.modal-caption {
+    color: white;
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.8;
+    text-align: center;
 }
 
 /* Aftercare Page Only */
@@ -383,9 +427,11 @@ body {
     .centered-icon {
         visibility: hidden;
     }
+
+    .centered-link {
+        visibility: hidden;
+    }
 }
-
-
 
 /* Booking Page Only */
 /* Booking container */

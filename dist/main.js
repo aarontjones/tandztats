@@ -202,7 +202,7 @@ function galleryPage() {
         galleryContainer.appendChild(galleryTitle);
         galleryContainer.appendChild(subtext);
         // Reading from Json file
-        const res = yield fetch("./data/gallery.json");
+        const res = yield fetch("/data/gallery.json");
         const data = yield res.json();
         // Gallery Section
         // I want this section to be split into 3 main parts
@@ -234,11 +234,13 @@ function galleryPage() {
                 const image = document.createElement("img");
                 image.src = img.src;
                 image.className = "gallery-image";
-                const caption = document.createElement("p");
-                caption.innerText = img.description;
                 const wrapper = document.createElement("div");
                 wrapper.appendChild(image);
-                wrapper.appendChild(caption);
+                image.addEventListener("click", () => {
+                    modalImage.src = img.src;
+                    modalCaption.innerText = img.description;
+                    modalOverlay.classList.add("active");
+                });
                 imageContainer.appendChild(wrapper);
             });
             // Click function
@@ -381,6 +383,20 @@ const instagramIcon = document.createElement("img");
 instagramIcon.src = "./assets/icons/instagram.svg";
 instagramIcon.className = "footer-icon";
 footerInstagramLink.appendChild(instagramIcon);
+// Modal for gallery images
+const modalOverlay = document.createElement("div");
+modalOverlay.className = "modal-overlay";
+const modalImage = document.createElement("img");
+modalImage.className = "modal-image";
+const modalCaption = document.createElement("p");
+modalCaption.className = "modal-caption";
+modalOverlay.appendChild(modalImage);
+modalOverlay.appendChild(modalCaption);
+document.body.appendChild(modalOverlay);
+// Closing modal on click anywhere
+modalOverlay.addEventListener("click", () => {
+    modalOverlay.classList.remove("active");
+});
 // Rendering Page
 function renderPage() {
     return __awaiter(this, void 0, void 0, function* () {
