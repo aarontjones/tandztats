@@ -1,0 +1,5 @@
+This is a website for my friend, who is starting his own tattoo business.
+
+You can visit the website, and explore at www.tandztat.uk
+
+As of now, It is unfinished, as I am awaiting usage of his Meta API key, to get images onto his website
