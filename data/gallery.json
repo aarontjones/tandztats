@@ -26,19 +26,5 @@
       "src": "./assets/images/place-holder-3.png",
       "description": "place holder 3"
     }
-  ],
-  "healed": [
-    {
-      "src": "./assets/images/place-holder-1.svg",
-      "description": "place holder 1"
-    },
-    {
-      "src": "./assets/images/place-holder-2.png",
-      "description": "place holder 2"
-    },
-    {
-      "src": "./assets/images/place-holder-3.png",
-      "description": "place holder 3"
-    }
   ]
 }
