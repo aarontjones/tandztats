@@ -407,6 +407,11 @@ body {
     text-align: center;
 }
 
+/* Gallery Disclaimer */
+.gallery-disclaimer {
+    font-weight: bold;
+}
+
 /* Aftercare Page Only */
 /* Printing stuff - shortens page*/
 @media print {

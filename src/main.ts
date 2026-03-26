@@ -322,11 +322,17 @@ async function galleryPage(): Promise<HTMLElement> {
     just need instagram API key and write an algorithm that separates them into groups automatically.
     `
 
+    // Gallery Disclaimer - message that disclaims all photos are original / inspired pieces
+    const galleryDisclaimer = document.createElement("p")
+    galleryDisclaimer.className = "gallery-disclaimer"
+    galleryDisclaimer.innerText = "ALL IMAGES DISPLAYED ARE INTELLECTUAL PROPERTY OF HARRY TANDY / TANDZ TAT. ALL PIECES ARE ORIGINAL OR INSPIRED."
+
     // Creating 3 sections
     galleryContainer.appendChild(createGallerySection("Flash Art", data.flash))
     galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied))
 
     galleryContainer.appendChild(tempText)
+    galleryContainer.appendChild(galleryDisclaimer)
 
     return galleryContainer
 }
@@ -494,7 +500,7 @@ async function renderPage() {
 // Footer
 const footer = document.createElement("div")
 footer.className = "footer"
-footer.innerText = "© Property of Tandz Tats"
+footer.innerText = "© Intellectual property of Harry Tandy"
 
 // Appending items to navbar
 navbar.appendChild(homeItem)
