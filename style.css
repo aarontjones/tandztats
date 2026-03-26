@@ -407,6 +407,10 @@ body {
         visibility: hidden;
     }
 
+    .main-title {
+        visibility: visible;
+    }
+
     .content-container,
     .content-container * {
         visibility: visible;
@@ -422,12 +426,20 @@ body {
         box-shadow: none;
         padding: 20px;
     }
-
+    /* Getting rid of icons when printing */
     .centered-icon {
         visibility: hidden;
     }
 
     .centered-link {
+        visibility: hidden;
+    }
+
+    .footer-link {
+        visibility: hidden;
+    }
+
+    .footer-icon {
         visibility: hidden;
     }
 }
