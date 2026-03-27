@@ -373,10 +373,16 @@ const modalOverlay = document.createElement("div");
 modalOverlay.className = "modal-overlay";
 const modalImage = document.createElement("img");
 modalImage.className = "modal-image";
+const modalInfoContainer = document.createElement("div");
+modalInfoContainer.className = "modal-info";
+const modalLikes = document.createElement("p");
+modalLikes.className = "modal-likes";
 const modalCaption = document.createElement("p");
 modalCaption.className = "modal-caption";
+modalInfoContainer.appendChild(modalLikes);
+modalInfoContainer.appendChild(modalCaption);
 modalOverlay.appendChild(modalImage);
-modalOverlay.appendChild(modalCaption);
+modalOverlay.appendChild(modalInfoContainer);
 document.body.appendChild(modalOverlay);
 // Closing modal on click anywhere
 modalOverlay.addEventListener("click", () => {

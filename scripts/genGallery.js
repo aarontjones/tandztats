@@ -1,11 +1,19 @@
 const fs = require("fs")
 
-// Your placeholder images
+// placeholder images
 const placeholders = [
   "place-holder-1.svg",
   "place-holder-2.png",
   "place-holder-3.png",
   "place-holder-4.svg"
+]
+
+// Placeholder likes
+const likes = [
+  19,
+  20,
+  31,
+  5  
 ]
 
 // Helper to format description nicely
@@ -18,7 +26,8 @@ function formatDescription(filename) {
 // Build gallery array
 const gallery = placeholders.map(file => ({
   src: `./assets/images/${file}`,
-  description: formatDescription(file)
+  description: formatDescription(file),
+  likeAmount: likes
 }));
 
 // Write to JSON

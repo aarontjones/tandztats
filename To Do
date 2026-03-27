@@ -1,23 +1,11 @@
-1) Get harry to look over / write about me, and aftercare section(s)
+0.5) Update genGallery.js to simulate likes with numbers.
 
-2) With predownloaded images from each gallery section - setup python / ts script to determine if an image, along with comments, are Flash Art, Applied Tats
+1) on modal view, add little box to the bottom of picture, where the caption is right now. add little box on the left of this box and add heart emoji - with the amount of likes from the post.
 
-3) rewrite aftercare sections to have the sections in different divs / p things - better layout
+2) below this box, similar to how it is now with the caption, add a hyperlink saying "See on Instagram"
 
 WHEN API KEY GET:
 
 X) properly set up github action to update json file with all images, likes and description.
 
 X) Replace link on booking page to go directly to Instagram DM's instead of the page
-
-Last but not least:
-
-Big) Fix code for viewing on phones
-
-in order of viewing on phones:
-
-1) Remove Collapsible sections for gallery - have it all up
-2) change it to be 1 picture on each row on gallery section
-5) 
-
-x) Done
