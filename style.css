@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: 12px;
 }
 
 html { /* Needed to stop page from smooshing when on home page */
@@ -174,7 +175,7 @@ body {
 
 .carousel-main {
     width: 50%;
-    height: 60%;
+    height: 40%;
     object-fit: cover;
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -192,7 +193,7 @@ body {
 .carousel-thumbnails {
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 75%;
 }
 
 .carousel-thumb {
@@ -249,12 +250,10 @@ body {
 }
 
 .about-text {
-    font-size: 16px;
     line-height: 1.6;
 }
 
 /* Portrait container */
-
 .image-container {
     width: 50%;
     display: flex;
@@ -333,6 +332,7 @@ body {
     position: relative;
     display: inline-block;
     width: max-content;
+    margin-left: 20px; /* give a bit of offset */
 }
 
 .section-title::after {
@@ -489,3 +489,57 @@ body {
 }
 
 /*                                  Mobile Views                                  */
+
+@media screen and (max-width: 568px) {
+    * {
+        font-size: 9px
+    }
+
+    .main-title {
+        font-size: 40px;
+    }
+
+    .tagline {
+        font-size: 10px;
+    }
+
+    .navbar-list {
+        font-size: 12px;
+    }
+
+    .page-title {
+        font-size: 30px;
+    }
+
+    .about-title { /* home page about me title thing - not top of page title */
+        font-size: 30px;
+    }
+
+    .about-text {
+        font-size: 12px;
+    }
+
+    .portrait-name {
+        font-size: 30px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+
+    /* Shrinking gap between navbar elements */
+    .navbar {
+        gap: 10%;
+    }
+
+    /* Formatting for About me section(s) */
+    .home-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-container,
+    .image-container {
+        width: 100%;
+    }
+}
