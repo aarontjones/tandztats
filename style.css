@@ -600,10 +600,16 @@ body {
 
     .page-title {
         font-size: 30px;
+        letter-spacing: 10px;
     }
 
     .about-title { /* home page about me title thing - not top of page title */
         font-size: 30px;
+        letter-spacing: 4px;
+    }
+
+    .aftercare-separate {
+        letter-spacing: 4px;
     }
 
     .about-text {
