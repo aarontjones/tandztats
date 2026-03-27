@@ -2,41 +2,21 @@
   {
     "src": "./assets/images/place-holder-1.svg",
     "description": "place holder 1",
-    "likeAmount": [
-      19,
-      20,
-      31,
-      5
-    ]
+    "likeAmount": 19
   },
   {
     "src": "./assets/images/place-holder-2.png",
     "description": "place holder 2",
-    "likeAmount": [
-      19,
-      20,
-      31,
-      5
-    ]
+    "likeAmount": 20
   },
   {
     "src": "./assets/images/place-holder-3.png",
     "description": "place holder 3",
-    "likeAmount": [
-      19,
-      20,
-      31,
-      5
-    ]
+    "likeAmount": 31
   },
   {
     "src": "./assets/images/place-holder-4.svg",
     "description": "place holder 4",
-    "likeAmount": [
-      19,
-      20,
-      31,
-      5
-    ]
+    "likeAmount": 5
   }
 ]
