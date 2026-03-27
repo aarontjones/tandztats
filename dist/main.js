@@ -218,6 +218,7 @@ function galleryPage() {
             image.addEventListener("click", () => {
                 modalImage.src = img.src;
                 modalCaption.innerText = img.description;
+                modalLikes.innerText = img.likeAmount;
                 modalOverlay.classList.add("active");
             });
             wrapper.appendChild(image);

@@ -222,6 +222,7 @@ function homePage(): HTMLElement {
 interface GalleryImage{ // Defines shape of a gallery image
     src: string
     description: string
+    likeAmount: string
 }
 
 // Gallery
@@ -268,6 +269,7 @@ async function galleryPage(): Promise<HTMLElement> {
         image.addEventListener("click", () => {
             modalImage.src = img.src
             modalCaption.innerText = img.description
+            modalLikes.innerText = img.likeAmount
             modalOverlay.classList.add("active")
         })
 
