@@ -277,10 +277,12 @@ async function galleryPage(): Promise<HTMLElement> {
         section.appendChild(titleWrapper)
 
         // Image Container (collapsible)
+        // In future - i want it to be always 3 pics across - hard code this
         const imageContainer = document.createElement("div")
         imageContainer.className = "section-images"
 
         images.forEach(img => {
+            // divide images into 3, round up - 3 pics in each row for each section
             const image = document.createElement("img")
             image.src = img.src
             image.className = "gallery-image"

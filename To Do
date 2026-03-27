@@ -12,6 +12,16 @@ X) Replace link on booking page to go directly to Instagram DM's instead of the 
 
 Last but not least:
 
-x) Fix code for viewing on phones
+Big) Fix code for viewing on phones
+
+in order of viewing on phones:
+
+1) Remove Collapsible sections for gallery - have it all up
+1) Overall, shrink fonts down a couple pixels for easier readability
+2) Shrink Nav Bar slightly / change to be vertical
+2) change it to be 1 picture on each row on gallery section
+3) Line up short gallery on home page
+4) fix section at bottom of home page where it goes about me above portrait pic.
+5) 
 
 x) Done
