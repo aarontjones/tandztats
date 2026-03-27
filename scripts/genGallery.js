@@ -24,10 +24,10 @@ function formatDescription(filename) {
 }
 
 // Build gallery array
-const gallery = placeholders.map(file => ({
+const gallery = placeholders.map((file, index) => ({
   src: `./assets/images/${file}`,
   description: formatDescription(file),
-  likeAmount: likes
+  likeAmount: likes[index]
 }));
 
 // Write to JSON
