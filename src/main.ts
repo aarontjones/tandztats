@@ -482,8 +482,6 @@ async function renderPage() {
     if (path !== "/booking") {
         contentContainer.appendChild(footerInstagramLink)
         contentContainer.appendChild(galleryDisclaimer)
-    } else {
-        contentContainer.appendChild(galleryDisclaimer)
     }
 }
 

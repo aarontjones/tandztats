@@ -400,9 +400,6 @@ function renderPage() {
             contentContainer.appendChild(footerInstagramLink);
             contentContainer.appendChild(galleryDisclaimer);
         }
-        else {
-            contentContainer.appendChild(galleryDisclaimer);
-        }
     });
 }
 // Footer

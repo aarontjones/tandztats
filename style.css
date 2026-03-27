@@ -550,4 +550,8 @@ body {
     .image-container {
         width: 100%;
     }
+
+    .top-container {
+        padding-bottom: 40px;
+    }
 }
