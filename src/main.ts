@@ -330,26 +330,53 @@ function aftercarePage(): HTMLElement {
     aftercareTitle.className = "page-title"
     aftercareTitle.innerText = "Aftercare"
 
-    // Aftercare Info
-    const aftercareInfo = document.createElement("p")
-    aftercareInfo.className = "booking-info"
-    aftercareInfo.innerText = `
-    After our session, there are a few rules you will have to follow, to ensure that your fresh tattoo heals in properly.
+    // Aftercare Information
+    // Intro
+    const aftercareIntro = document.createElement("p")
+    aftercareIntro.className = "aftercare-para"
+    aftercareIntro.innerText = "After our session, there are a few rules you will have to follow, to ensure that your fresh tattoo heals in properly."
 
-    1) 
+    // 1
+    const aftercareOne = document.createElement("h2")
+    aftercareOne.className = "aftercare-separate"
+    aftercareOne.innerText = "One"
 
-    Take off the second skin 2 days after our session, and wash gently with warm water and unscented soap.
-    If you use a Loofah in the shower, be careful not to rub on the area.
+    // First Para
+    const aftercareParaOne = document.createElement("p")
+    aftercareParaOne.className = "aftercare-para"
+    aftercareParaOne.innerText = `
+    Take off the second skin 2 days after our session, and wash gently with warm water and unscented soap. 
+    
+    If you use a Loofah in the shower, be careful not to rub on the area.`
 
-    2)
+    // 2
+    const aftercareTwo = document.createElement("h2")
+    aftercareTwo.className = "aftercare-separate"
+    aftercareTwo.innerText = "Two"
 
-    Moisturise the area twice a day for 1 week, after the second skin is removed: Once in the morning and once in the evening. I recommend using Natural Cocoa Butter.
-    If the tattoo gets itchy at all - Do not itch, or else some of the ink will peel off. Same as before, do not rub too harshly with a Loofah or any other shower brush.
+    // Second para
+    const aftercareParaTwo = document.createElement("p")
+    aftercareParaTwo.className = "aftercare-para"
+    aftercareParaTwo.innerText = `
+    Moisturise the area twice a day for 1 week, after the second skin is removed: Once in the morning and once in the evening. 
 
-    3) 
+    I recommend using Natural Cocoa Butter. If the tattoo gets itchy at all - Do not itch, or else some of the ink will peel off. 
+    
+    Same as before, do not rub too harshly with a Loofah or any other shower brush.`
 
+    // 3
+    const aftercareThree = document.createElement("h2")
+    aftercareThree.className = "aftercare-separate"
+    aftercareThree.innerText = "Three"
+
+    // Third para
+    const aftercareParaThree = document.createElement("p")
+    aftercareParaThree.className = "aftercare-para"
+    aftercareParaThree.innerText = `
     After the week of moisturising, be sure to protect the tattoo from the sun with either sun cream, or covering it up. Do this for at least a month.
+
     In due time, I will ask for pictures or checkups for how the tattoo is healing. If bits are fading, or the tattoo has completely failed to heal in, I can provide free touch-up sessions
+    
     If needed, there is a downloadable version of this page below.
     `
 
@@ -371,7 +398,16 @@ function aftercarePage(): HTMLElement {
     })
 
     aftercareContainer.appendChild(aftercareTitle)
-    aftercareContainer.appendChild(aftercareInfo)
+
+    // Appending all my stupid aftercare info bits
+    aftercareContainer.appendChild(aftercareIntro)
+    aftercareContainer.appendChild(aftercareOne)
+    aftercareContainer.appendChild(aftercareParaOne)
+    aftercareContainer.appendChild(aftercareTwo)
+    aftercareContainer.appendChild(aftercareParaTwo)
+    aftercareContainer.appendChild(aftercareThree)
+    aftercareContainer.appendChild(aftercareParaThree)
+
     aftercareContainer.appendChild(printPage) // Print Symbol
 
     return aftercareContainer
@@ -481,6 +517,9 @@ async function renderPage() {
     // If Page is booking, dont show footer ig link - do this cause link in booking goes directly to DM's
     if (path !== "/booking") {
         contentContainer.appendChild(footerInstagramLink)
+    } 
+    // If page is gallery, show gallery disclaimer
+    if (path === "/gallery") {
         contentContainer.appendChild(galleryDisclaimer)
     }
 }

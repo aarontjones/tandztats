@@ -154,11 +154,26 @@ body {
 
 /* Page Titles */
 .page-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 95%; /* This is for the black bars at the side of it */
+    margin: 0 auto;
+
     font-family: 'Grenze Gotisch', cursive;
     font-size: 36px;
     margin-bottom: 20px;
     letter-spacing: 20px;
     text-align: center;
+}
+
+.page-title::before,
+.page-title::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background-color: black;
 }
 
 /*                                  Home page only                                  */
@@ -242,11 +257,26 @@ body {
 }
 
 .about-title {
-    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 95%; /* This is for the black bars at the side of it */
+    margin: 0 auto;
+
     font-family: 'Grenze Gotisch', cursive;
-    margin-bottom: 20px;
-    letter-spacing: 14px;
+    font-size: 30px;
+    margin-bottom: 10px;
+    letter-spacing: 10px;
     text-align: center;
+}
+
+.about-title::before,
+.about-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: black;
 }
 
 .about-text {
@@ -417,6 +447,37 @@ body {
 }
 
 /*                                  Aftercare page only                                  */
+/* Stupid aftercare paragraphs thing */
+.aftercare-para {
+    text-align: center;
+    width: 80%;
+}
+
+.aftercare-separate {
+    text-transform: lowercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 45%; /* This is for the black bars at the side of it */
+    margin: 0 auto;
+
+    font-family: 'Grenze Gotisch', cursive;
+    font-size: 28px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    letter-spacing: 12px;
+    text-align: center;
+}
+
+.aftercare-separate::before,
+.aftercare-separate::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: black;
+}
+
 /* Printing stuff - shortens page*/
 @media print {
     body * {
@@ -446,6 +507,27 @@ body {
         box-shadow: none;
         padding: 20px;
     }
+
+    /* Addings lines in print */
+    .page-title::before,
+    .page-title::after {
+        background-color: black !important;
+        height: 2px;
+        /* Below makes the lines print on page title */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .aftercare-separate::before,
+    .aftercare-separate::after {
+        background-color: black !important;
+        height: 1px;
+        /* Below makes the lines print on page title */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+
     /* Getting rid of icons when printing */
     .centered-icon {
         visibility: hidden;
@@ -481,6 +563,7 @@ body {
 /* Shared Link and Icon Stuff */
 .centered-link {
     align-self: center;
+    margin-top: 20px;
 }
 
 .centered-icon {
