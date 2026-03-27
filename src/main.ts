@@ -310,18 +310,6 @@ async function galleryPage(): Promise<HTMLElement> {
         return section
     }
 
-    // Temp Gallery Information
-    const tempText = document.createElement("p")
-    tempText.innerText = `
-    Soon, there will be different sections of image split between a few groups.
-
-    Group 1: Flash Art
-
-    Group 2: Tattoos on People
-
-    just need instagram API key and write an algorithm that separates them into groups automatically.
-    `
-
     // Gallery Disclaimer - message that disclaims all photos are original / inspired pieces
     const galleryDisclaimer = document.createElement("p")
     galleryDisclaimer.className = "gallery-disclaimer"
@@ -331,7 +319,6 @@ async function galleryPage(): Promise<HTMLElement> {
     galleryContainer.appendChild(createGallerySection("Flash Art", data.flash))
     galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied))
 
-    galleryContainer.appendChild(tempText)
     galleryContainer.appendChild(galleryDisclaimer)
 
     return galleryContainer

@@ -4,7 +4,8 @@ const fs = require("fs")
 const placeholders = [
   "place-holder-1.svg",
   "place-holder-2.png",
-  "place-holder-3.png"
+  "place-holder-3.png",
+  "place-holder-4.svg"
 ]
 
 // Helper to format description nicely

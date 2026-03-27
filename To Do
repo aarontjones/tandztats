@@ -2,6 +2,8 @@
 
 2) With predownloaded images from each gallery section - setup python / ts script to determine if an image, along with comments, are Flash Art, Applied Tats
 
+3) rewrite aftercare sections to have the sections in different divs / p things - better layout
+
 WHEN API KEY GET:
 
 X) properly set up github action to update json file with all images, likes and description.
