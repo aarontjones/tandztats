@@ -219,6 +219,11 @@ function homePage(): HTMLElement {
     return homeWrapper
 }
 
+interface GalleryImage{ // Defines shape of a gallery image
+    src: string
+    description: string
+}
+
 // Gallery
 async function galleryPage(): Promise<HTMLElement> {
     // Same as booking page, just wider
@@ -234,8 +239,8 @@ async function galleryPage(): Promise<HTMLElement> {
     const subtext = document.createElement("p")
     subtext.className = "subtext"
     subtext.innerText = `
-    Below is some of my work, separated into Flash Art, Applied Tats and Healed Tats.
-    Simply click on each section to expand or retract.
+    Below is some of my work. It consists of mostly flash art and fresh tattoos.
+    For more information, you can click on each image to get a closer look.
     `
 
     // Appending Gallery Container
@@ -247,75 +252,30 @@ async function galleryPage(): Promise<HTMLElement> {
     const data = await res.json()
 
     // Gallery Section
-    // I want this section to be split into 3 main parts
-    // 1) Flash Art
-    // 2) Tattoos on People
-    // 3) Healed Tattoos
-    // A function will be needed to create these sections
+    const imageContainer = document.createElement("div")
+    imageContainer.className = "gallery-images"
 
-    function createGallerySection(titleText: string, images: any[]): HTMLElement {
-        const section = document.createElement("div")
-        section.className = "gallery-section"
+    data.forEach((img: GalleryImage) => {
+        const wrapper = document.createElement("div")
+        wrapper.className = "image-wrapper"
 
-        // Title
-        const sectionTitle = document.createElement("h3")
-        sectionTitle.className = "section-title"
-        sectionTitle.innerText = titleText
+        const image = document.createElement("img")
+        image.src = img.src
+        image.alt = img.description
+        image.className = "gallery-image"
 
-        // Arrow
-        const arrow = document.createElement("span")
-        arrow.className = "toggle-arrow"
-        arrow.innerText = "▼"
-
-        // Title Wrapper
-        const titleWrapper = document.createElement("div")
-        titleWrapper.className = "title-wrapper"
-
-        titleWrapper.appendChild(sectionTitle)
-        titleWrapper.appendChild(arrow)
-
-        section.appendChild(titleWrapper)
-
-        // Image Container (collapsible)
-        // In future - i want it to be always 3 pics across - hard code this
-        const imageContainer = document.createElement("div")
-        imageContainer.className = "section-images"
-
-        images.forEach(img => {
-            // divide images into 3, round up - 3 pics in each row for each section
-            const image = document.createElement("img")
-            image.src = img.src
-            image.className = "gallery-image"
-
-            const wrapper = document.createElement("div")
-            wrapper.appendChild(image)
-
-            image.addEventListener("click", () => {
-                modalImage.src = img.src
-                modalCaption.innerText = img.description
-                modalOverlay.classList.add("active")
-            })
-
-            imageContainer.appendChild(wrapper)
+        // Click to open modal
+        image.addEventListener("click", () => {
+            modalImage.src = img.src
+            modalCaption.innerText = img.description
+            modalOverlay.classList.add("active")
         })
 
-        // Click function
-        arrow.addEventListener("click", () => {
-            const isExpanded = imageContainer.classList.contains("expanded");
-            imageContainer.classList.toggle("expanded");
+        wrapper.appendChild(image)
+        imageContainer.appendChild(wrapper)
+    })
 
-            // toggle arrow rotation
-            arrow.classList.toggle("rotated");
-        })
-
-        section.appendChild(imageContainer)
-        return section
-    }
-
-    // Creating 3 sections
-    galleryContainer.appendChild(createGallerySection("Flash Art", data.flash))
-    galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied))
-
+    galleryContainer.appendChild(imageContainer)
     return galleryContainer
 }
 

@@ -342,19 +342,6 @@ body {
     opacity: 1;
 }
 
-.toggle-arrow {
-    font-size: 20px;
-    cursor: pointer;
-    user-select: none;
-    transition: transform 0.3s ease;
-    display: inline-block;
-    transform: rotate(180deg);
-}
-
-.toggle-arrow.rotated {
-    transform: rotate(0deg);
-}
-
 .section-title {
     font-family: 'Grenze Gotisch', cursive;
     font-size: 24px;
