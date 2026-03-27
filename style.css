@@ -429,12 +429,28 @@ body {
 
 /* Modal Likes and Info*/
 .modal-info {
-    width: 100%;
-    margin-top: 15px;
+    width: 35%;
+    flex-direction: row;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: white;
+    opacity: 1;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 15px;
+}
+
+.modal-likes {
+    opacity: 2;
+    color: black;
+    text-align: left;
 }
 
 .modal-caption {
-    opacity: 1;
+    opacity: 2;
+    color: black;
     text-align: left;
 }
 
@@ -649,4 +665,9 @@ body {
     .gallery-images {
         grid-template-columns: 2fr;
     }
+
+    .modal-info {
+        flex-direction: column;
+    }
+
 }

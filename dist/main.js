@@ -374,6 +374,7 @@ const modalOverlay = document.createElement("div");
 modalOverlay.className = "modal-overlay";
 const modalImage = document.createElement("img");
 modalImage.className = "modal-image";
+// Likes and Descriptions
 const modalInfoContainer = document.createElement("div");
 modalInfoContainer.className = "modal-info";
 const modalLikes = document.createElement("p");
