@@ -15,18 +15,11 @@ function formatDescription(filename) {
     .replace(/-/g, " ")       // replace dashes with spaces
 }
 
-// Build gallery object
-const gallery = {
-  flash: placeholders.map(file => ({
-    src: `./assets/images/${file}`,
-    description: formatDescription(file)
-  })),
-
-  applied: placeholders.map(file => ({
-    src: `./assets/images/${file}`,
-    description: formatDescription(file)
-  })),
-}
+// Build gallery array
+const gallery = placeholders.map(file => ({
+  src: `./assets/images/${file}`,
+  description: formatDescription(file)
+}));
 
 // Write to JSON
 fs.writeFileSync("./data/gallery.json", JSON.stringify(gallery, null, 2))
