@@ -255,14 +255,9 @@ function galleryPage() {
             section.appendChild(imageContainer);
             return section;
         }
-        // Gallery Disclaimer - message that disclaims all photos are original / inspired pieces
-        const galleryDisclaimer = document.createElement("p");
-        galleryDisclaimer.className = "gallery-disclaimer";
-        galleryDisclaimer.innerText = "ALL IMAGES DISPLAYED ARE INTELLECTUAL PROPERTY OF HARRY TANDY / TANDZ TAT. ALL PIECES ARE ORIGINAL OR INSPIRED.";
         // Creating 3 sections
         galleryContainer.appendChild(createGallerySection("Flash Art", data.flash));
         galleryContainer.appendChild(createGallerySection("Applied Tats", data.applied));
-        galleryContainer.appendChild(galleryDisclaimer);
         return galleryContainer;
     });
 }
@@ -375,6 +370,10 @@ const instagramIcon = document.createElement("img");
 instagramIcon.src = "./assets/icons/instagram.svg";
 instagramIcon.className = "footer-icon";
 footerInstagramLink.appendChild(instagramIcon);
+// Gallery Disclaimer - message that disclaims all photos are original / inspired pieces
+const galleryDisclaimer = document.createElement("p");
+galleryDisclaimer.className = "gallery-disclaimer";
+galleryDisclaimer.innerText = "ALL IMAGES DISPLAYED ARE INTELLECTUAL PROPERTY OF HARRY TANDY / TANDZ TAT. ALL PIECES ARE ORIGINAL OR INSPIRED.";
 // Modal for gallery images
 const modalOverlay = document.createElement("div");
 modalOverlay.className = "modal-overlay";
@@ -399,6 +398,10 @@ function renderPage() {
         // If Page is booking, dont show footer ig link - do this cause link in booking goes directly to DM's
         if (path !== "/booking") {
             contentContainer.appendChild(footerInstagramLink);
+            contentContainer.appendChild(galleryDisclaimer);
+        }
+        else {
+            contentContainer.appendChild(galleryDisclaimer);
         }
     });
 }

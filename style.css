@@ -410,6 +410,9 @@ body {
 
 /* Gallery Disclaimer */
 .gallery-disclaimer {
+    align-self: center;
+    text-align: center;
+    width: 100%;
     font-weight: bold;
 }
 
@@ -427,6 +430,10 @@ body {
     .content-container,
     .content-container * {
         visibility: visible;
+    }
+
+    .booking-container {
+        width: 50%;
     }
 
     .content-container {
@@ -530,7 +537,7 @@ body {
 
     /* Shrinking gap between navbar elements */
     .navbar {
-        gap: 10%;
+        gap: 12%;
     }
 
     /* Formatting for About me section(s) */
