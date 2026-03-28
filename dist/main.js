@@ -211,23 +211,47 @@ function galleryPage() {
         data.forEach((img) => {
             const wrapper = document.createElement("div");
             wrapper.className = "image-wrapper";
-            const image = document.createElement("img");
-            image.src = img.src;
-            image.alt = img.description;
-            image.className = "gallery-image";
-            // Click to open modal
-            image.addEventListener("click", () => {
-                modalImage.src = img.src;
-                modalCaption.innerText = img.description;
-                modalLikes.innerText = img.likeAmount;
-                // clickable image
-                modalImage.onclick = (e) => {
-                    e.stopPropagation();
-                    window.open(img.igLink, "_blank");
-                };
-                modalOverlay.classList.add("active");
-            });
-            wrapper.appendChild(image);
+            // If img is an image
+            if (img.type === "image") {
+                const image = document.createElement("img");
+                image.src = img.src;
+                image.alt = img.description;
+                image.className = "gallery-image";
+                // Click to open image modal
+                image.addEventListener("click", () => {
+                    modalImage.style.display = "block";
+                    modalVideo.style.display = "none";
+                    modalImage.src = img.src;
+                    modalCaption.innerText = img.description;
+                    modalLikes.innerText = img.likeAmount;
+                    // clickable image
+                    modalImage.onclick = (e) => {
+                        e.stopPropagation();
+                        window.open(img.igLink, "_blank");
+                    };
+                    modalOverlay.classList.add("active");
+                });
+                wrapper.appendChild(image);
+            }
+            // If image is a video, set image to thumbnail of video and have video play as modal
+            if (img.type === "video") {
+                const video = document.createElement("video");
+                video.src = img.src;
+                // video.controls = true // allows video to be played
+                video.className = "gallery-image";
+                // Click to open video modal
+                video.addEventListener("click", () => {
+                    modalImage.style.display = "none";
+                    modalVideo.style.display = "block";
+                    modalVideo.src = img.src;
+                    modalVideo.currentTime = 0;
+                    modalVideo.play(); // Plays automatically
+                    modalCaption.innerText = img.description;
+                    modalLikes.innerText = img.likeAmount;
+                    modalOverlay.classList.add("active");
+                });
+                wrapper.appendChild(video);
+            }
             imageContainer.appendChild(wrapper);
         });
         galleryContainer.appendChild(imageContainer);
@@ -384,6 +408,9 @@ modalContent.className = "modal-content";
 // Modal image
 const modalImage = document.createElement("img");
 modalImage.className = "modal-image";
+// Modal Video
+const modalVideo = document.createElement("video");
+modalVideo.className = "modal-video";
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div");
 modalInfoContainer.className = "modal-info";
@@ -409,6 +436,7 @@ modalDescContainer.appendChild(modalCaption);
 modalInfoContainer.appendChild(modalLikeContainer);
 modalInfoContainer.appendChild(modalDescContainer);
 modalContent.appendChild(modalImage);
+modalContent.appendChild(modalVideo);
 modalContent.appendChild(modalInfoContainer);
 modalOverlay.appendChild(modalContent);
 document.body.appendChild(modalOverlay);

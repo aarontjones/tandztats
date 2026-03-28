@@ -224,6 +224,7 @@ interface GalleryImage{ // Defines shape of a gallery image
     description: string
     likeAmount: string
     igLink: string
+    type: string
 }
 
 // Gallery
@@ -262,27 +263,58 @@ async function galleryPage(): Promise<HTMLElement> {
         const wrapper = document.createElement("div")
         wrapper.className = "image-wrapper"
 
-        const image = document.createElement("img")
-        image.src = img.src
-        image.alt = img.description
-        image.className = "gallery-image"
+        // If img is an image
+        if (img.type === "image") {
+            const image = document.createElement("img")
+            image.src = img.src
+            image.alt = img.description
+            image.className = "gallery-image"
 
-        // Click to open modal
-        image.addEventListener("click", () => {
-            modalImage.src = img.src
-            modalCaption.innerText = img.description
-            modalLikes.innerText = img.likeAmount
+            // Click to open image modal
+            image.addEventListener("click", () => {
+                modalImage.style.display = "block"
+                modalVideo.style.display = "none"
 
-            // clickable image
-            modalImage.onclick = (e) => {
-                e.stopPropagation()
-                window.open(img.igLink, "_blank")
-            }
+                modalImage.src = img.src
+                modalCaption.innerText = img.description
+                modalLikes.innerText = img.likeAmount
 
-            modalOverlay.classList.add("active")
-        })
+                // clickable image
+                modalImage.onclick = (e) => {
+                    e.stopPropagation()
+                    window.open(img.igLink, "_blank")
+                }
 
-        wrapper.appendChild(image)
+                modalOverlay.classList.add("active")
+            })
+
+            wrapper.appendChild(image)
+        } 
+
+        // If image is a video, set image to thumbnail of video and have video play as modal
+        if (img.type === "video") {
+            const video = document.createElement("video")
+            video.src = img.src
+            // video.controls = true // allows video to be played
+            video.className = "gallery-image"
+
+            // Click to open video modal
+            video.addEventListener("click", () => {
+                modalImage.style.display = "none"
+                modalVideo.style.display = "block"
+
+                modalVideo.src = img.src
+                modalVideo.currentTime = 0
+                modalVideo.play() // Plays automatically
+
+                modalCaption.innerText = img.description
+                modalLikes.innerText = img.likeAmount
+
+                modalOverlay.classList.add("active")
+            })
+            wrapper.appendChild(video)
+        }
+
         imageContainer.appendChild(wrapper)
     })
 
@@ -471,6 +503,10 @@ modalContent.className = "modal-content"
 const modalImage = document.createElement("img")
 modalImage.className = "modal-image"
 
+// Modal Video
+const modalVideo = document.createElement("video")
+modalVideo.className = "modal-video"
+
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div")
 modalInfoContainer.className = "modal-info"
@@ -505,6 +541,8 @@ modalInfoContainer.appendChild(modalLikeContainer)
 modalInfoContainer.appendChild(modalDescContainer)
 
 modalContent.appendChild(modalImage)
+modalContent.appendChild(modalVideo)
+
 modalContent.appendChild(modalInfoContainer)
 
 modalOverlay.appendChild(modalContent)
