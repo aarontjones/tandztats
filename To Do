@@ -1,13 +1,5 @@
 USE GITHUB SECRETS TO PROTECT API KEY - CALL IT FROM genGallery.js to protect API key!!!!!!!!!
 
-1) add black dots on the bottom of the thumbnail of a gallery container that indicates how many images are in it.
-
-1.5) As well as this, creat faint dots on the inside of the gallery at the bottom of the screen, and have the one the image is on slightly bolder (keep in theme with opaque 1 and 0.7)
-
-2) ^ same as above, but a play symbol in the middle of the image if its a video
-
-
-
 -----------------IMPORTANT WORKFLOW FOR GALLERY API CALL
 genGallery.js generates gallery.json
 ->
@@ -20,8 +12,6 @@ Replace all placeholders w/ functionalities.
 1) Rewrite genGallery.js to implement instagram api. Things needed - Link to post, Description, Like amount, unique ID and sorting by post date (Newest at top left, oldest at bottom right)
 
 2) In genGallery.js, when calling API, set portrait picture to be the users profile picture.
-
-3) Make portrait.png the flavicon
 
 4) Write js script that for every 3 days, it chooses new images from the json file for the featured work (IF IT CHOOSES A GALLERY STYLE POST - CHOOSE RANDOM POST) - pretty simple - as well as github action to do so
 

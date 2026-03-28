@@ -296,7 +296,7 @@ async function galleryPage(): Promise<HTMLElement> {
         } 
 
         // If image is a video, set image to thumbnail of video and have video play as modal
-        if (img.type === "video") {
+        if (img.type === "video") {  
             const video = document.createElement("video")
             video.src = (img.src as string)
             video.className = "gallery-image"
@@ -317,6 +317,7 @@ async function galleryPage(): Promise<HTMLElement> {
 
                 modalOverlay.classList.add("active")
             })
+
             wrapper.appendChild(video)
         }
 
