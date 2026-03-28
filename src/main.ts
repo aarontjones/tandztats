@@ -224,6 +224,7 @@ interface GalleryImage{ // Defines shape of a gallery image
     description: string
     likeAmount: string
     igLink: string
+    id: string
     type: string
 }
 
@@ -313,6 +314,43 @@ async function galleryPage(): Promise<HTMLElement> {
                 modalOverlay.classList.add("active")
             })
             wrapper.appendChild(video)
+        }
+
+        // If image is a carousel, set image to first element, and have it run like short gallery in home page.
+        if (img.type === "carousel") {
+            const carousel = document.createElement("img")
+            carousel.src = (img.src as string[])[0]!
+            carousel.className = "gallery-image"
+
+            carousel.addEventListener("click", () => {
+                modalImage.style.display = "block"
+                modalVideo.style.display = "none" // removes video
+
+                const images = img.src as string[]
+                let currIndex = 0
+
+                modalImage.src = images[currIndex]!
+                modalCaption.innerText = img.description
+                modalLikes.innerText = img.likeAmount
+
+                // Click image to cycle through carousel
+                modalImage.onclick = (e) => {
+                    e.stopPropagation()
+
+                    // Backwards and forward
+                    if (e.clientX > window.innerWidth / 2) {
+                        currIndex = (currIndex + 1) % images.length
+                    } else {
+                        currIndex = (currIndex - 1 + images.length) % images.length
+                    }
+
+                    modalImage.src = images[currIndex]!
+                }
+
+                modalOverlay.classList.add("active")
+            })
+
+            wrapper.appendChild(carousel)
         }
 
         imageContainer.appendChild(wrapper)
@@ -552,6 +590,8 @@ document.body.appendChild(modalOverlay)
 // Closing modal on click anywhere
 modalOverlay.addEventListener("click", () => {
     modalOverlay.classList.remove("active")
+    modalVideo.pause() // Pause video
+    modalImage.onclick = null // reset carousel(s)
 })
 
 // Rendering Page

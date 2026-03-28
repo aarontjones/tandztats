@@ -1,6 +1,3 @@
-
-2) Allow implementation for video (NOT REELS) and other format (idk what its called but one post has a lot of photos - gallery i guess)
-
 USE GITHUB SECRETS TO PROTECT API KEY - CALL IT FROM genGallery.js to protect API key!!!!!!!!!
 
 -----------------IMPORTANT WORKFLOW FOR GALLERY API CALL
@@ -10,18 +7,14 @@ main.ts uses gallery.json to load in all images into link
 
 WHEN API KEY GET:
 
-2 options for handling gallery-style posts
-
-A) allow it to be one post on website - and when they view on gallery, they can flick through all pages in that post - if one of these is chosen as featured image - take random post from it and make it that. (most likely do this)
-B) Split them up into different parts and add onto end of description (Part X of Y) in gallery section at end of description (most likely not)
-
 Replace all placeholders w/ functionalities.
 
-1) Rewrite genGallery.js to implement instagram api. Things needed - Image(s) or video(s), Link to post, Description, Like amount
+1) Rewrite genGallery.js to implement instagram api. Things needed - Link to post, Description, Like amount, unique ID and sorting by post date (Newest at top left, oldest at bottom right)
+
+2) In genGallery.js, when calling API, set portrait picture to be the users profile picture.
 
 1) Write js script that for every 3 days, it chooses new images from the json file for the featured work (IF IT CHOOSES A GALLERY STYLE POST - CHOOSE RANDOM POST) - pretty simple - as well as github action to do so
 
-2) write a script that for every 7 days, check if the profile pic has changed, and store locally as assets/images/portrait.png
 
 3) Make portrait.png the flavicon
 
