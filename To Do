@@ -1,6 +1,12 @@
 USE GITHUB SECRETS TO PROTECT API KEY - CALL IT FROM genGallery.js to protect API key!!!!!!!!!
 
-1) Make Gallery container scrollable so it isnt super long when api call is made
+1) add black dots on the bottom of the thumbnail of a gallery container that indicates how many images are in it.
+
+1.5) As well as this, creat faint dots on the inside of the gallery at the bottom of the screen, and have the one the image is on slightly bolder (keep in theme with opaque 1 and 0.7)
+
+2) ^ same as above, but a play symbol in the middle of the image if its a video
+
+
 
 -----------------IMPORTANT WORKFLOW FOR GALLERY API CALL
 genGallery.js generates gallery.json

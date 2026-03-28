@@ -270,9 +270,12 @@ async function galleryPage(): Promise<HTMLElement> {
             image.src = (img.src as string)
             image.alt = img.description
             image.className = "gallery-image"
+            image.loading = "lazy" // Not even sure if this works
 
             // Click to open image modal
             image.addEventListener("click", () => {
+                modalCounter.innerText = "" // Hides carousel counter
+                modalCounter.style.display = "none"
                 modalImage.style.display = "block"
                 modalVideo.style.display = "none"
 
@@ -296,11 +299,12 @@ async function galleryPage(): Promise<HTMLElement> {
         if (img.type === "video") {
             const video = document.createElement("video")
             video.src = (img.src as string)
-            // video.controls = true // allows video to be played
             video.className = "gallery-image"
 
             // Click to open video modal
             video.addEventListener("click", () => {
+                modalCounter.innerText = "" // Hides carousel counter
+                modalCounter.style.display = "none"
                 modalImage.style.display = "none"
                 modalVideo.style.display = "block"
 
@@ -323,11 +327,19 @@ async function galleryPage(): Promise<HTMLElement> {
             carousel.className = "gallery-image"
 
             carousel.addEventListener("click", () => {
+                modalCounter.style.display = "block"
                 modalImage.style.display = "block"
                 modalVideo.style.display = "none" // removes video
 
+                // Update counter
+                function updateCounter(index: number, total: number) {
+                    modalCounter.innerText = `${index + 1} | ${total}`
+                }
+
                 const images = img.src as string[]
                 let currIndex = 0
+
+                updateCounter(currIndex, images.length)
 
                 modalImage.src = images[currIndex]!
                 modalCaption.innerText = img.description
@@ -345,6 +357,7 @@ async function galleryPage(): Promise<HTMLElement> {
                     }
 
                     modalImage.src = images[currIndex]!
+                    updateCounter(currIndex, images.length)
                 }
 
                 modalOverlay.classList.add("active")
@@ -356,7 +369,11 @@ async function galleryPage(): Promise<HTMLElement> {
         imageContainer.appendChild(wrapper)
     })
 
-    galleryContainer.appendChild(imageContainer)
+    const scrollArea = document.createElement("div")
+    scrollArea.className = "gallery-scroll"
+
+    scrollArea.appendChild(imageContainer)
+    galleryContainer.appendChild(scrollArea)
     return galleryContainer
 }
 
@@ -578,10 +595,14 @@ modalDescContainer.appendChild(modalCaption)
 modalInfoContainer.appendChild(modalLikeContainer)
 modalInfoContainer.appendChild(modalDescContainer)
 
+// Dots for gallery carousel modal overlay
+const modalCounter = document.createElement("div")
+modalCounter.className = "modal-counter"
+
 modalContent.appendChild(modalImage)
 modalContent.appendChild(modalVideo)
-
 modalContent.appendChild(modalInfoContainer)
+modalContent.appendChild(modalCounter)
 
 modalOverlay.appendChild(modalContent)
 

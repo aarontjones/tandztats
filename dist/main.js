@@ -217,8 +217,11 @@ function galleryPage() {
                 image.src = img.src;
                 image.alt = img.description;
                 image.className = "gallery-image";
+                image.loading = "lazy"; // Not even sure if this works
                 // Click to open image modal
                 image.addEventListener("click", () => {
+                    modalCounter.innerText = ""; // Hides carousel counter
+                    modalCounter.style.display = "none";
                     modalImage.style.display = "block";
                     modalVideo.style.display = "none";
                     modalImage.src = img.src;
@@ -237,10 +240,11 @@ function galleryPage() {
             if (img.type === "video") {
                 const video = document.createElement("video");
                 video.src = img.src;
-                // video.controls = true // allows video to be played
                 video.className = "gallery-image";
                 // Click to open video modal
                 video.addEventListener("click", () => {
+                    modalCounter.innerText = ""; // Hides carousel counter
+                    modalCounter.style.display = "none";
                     modalImage.style.display = "none";
                     modalVideo.style.display = "block";
                     modalVideo.src = img.src;
@@ -258,10 +262,16 @@ function galleryPage() {
                 carousel.src = img.src[0];
                 carousel.className = "gallery-image";
                 carousel.addEventListener("click", () => {
+                    modalCounter.style.display = "block";
                     modalImage.style.display = "block";
                     modalVideo.style.display = "none"; // removes video
+                    // Update counter
+                    function updateCounter(index, total) {
+                        modalCounter.innerText = `${index + 1} | ${total}`;
+                    }
                     const images = img.src;
                     let currIndex = 0;
+                    updateCounter(currIndex, images.length);
                     modalImage.src = images[currIndex];
                     modalCaption.innerText = img.description;
                     modalLikes.innerText = img.likeAmount;
@@ -276,6 +286,7 @@ function galleryPage() {
                             currIndex = (currIndex - 1 + images.length) % images.length;
                         }
                         modalImage.src = images[currIndex];
+                        updateCounter(currIndex, images.length);
                     };
                     modalOverlay.classList.add("active");
                 });
@@ -283,7 +294,10 @@ function galleryPage() {
             }
             imageContainer.appendChild(wrapper);
         });
-        galleryContainer.appendChild(imageContainer);
+        const scrollArea = document.createElement("div");
+        scrollArea.className = "gallery-scroll";
+        scrollArea.appendChild(imageContainer);
+        galleryContainer.appendChild(scrollArea);
         return galleryContainer;
     });
 }
@@ -464,9 +478,13 @@ modalDescContainer.appendChild(modalCaption);
 // Appending info container with both sides
 modalInfoContainer.appendChild(modalLikeContainer);
 modalInfoContainer.appendChild(modalDescContainer);
+// Dots for gallery carousel modal overlay
+const modalCounter = document.createElement("div");
+modalCounter.className = "modal-counter";
 modalContent.appendChild(modalImage);
 modalContent.appendChild(modalVideo);
 modalContent.appendChild(modalInfoContainer);
+modalContent.appendChild(modalCounter);
 modalOverlay.appendChild(modalContent);
 document.body.appendChild(modalOverlay);
 // Closing modal on click anywhere
