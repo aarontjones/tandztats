@@ -17,19 +17,19 @@ const postImage = [
   {
     file: "place-holder-2.png",
     likes: 152,
-    id: 1,
+    id: 2,
     igLink: "#"
   },
   {
     file: "place-holder-3.png",
     likes: 13,
-    id: 1,
+    id: 3,
     igLink: "#"
   },
   {
     file: "place-holder-4.svg",
     likes: 52,
-    id: 1,
+    id: 4,
     igLink: "#"
   }
 ]
@@ -77,7 +77,7 @@ const imagePosts = postImage.map((post) => ({
 
 
 // Videos
-const videoPosts = postImage.map((post) => ({
+const videoPosts = postVideo.map((post) => ({
     src: `./assets/images/${post.file}`,
     description: formatDescription(post.file),
     likeAmount: post.likes,
