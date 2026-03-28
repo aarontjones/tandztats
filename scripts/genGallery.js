@@ -1,38 +1,57 @@
 const fs = require("fs")
 const { type } = require("os")
 
-// Load in instagram api
+// Eventually, update this to include their unique ID's in everything - so that it orders oldest to newest.
 
-// If post is a normal image
+
+// Load in instagram posts via api
+
+// If image, put them into post images, along with their ID
 const postImage = [
-
+  {
+    file: "place-holder-1.svg",
+    likes: 12,
+    id: 1,
+    igLink: "#"
+  },
+  {
+    file: "place-holder-2.png",
+    likes: 152,
+    id: 1,
+    igLink: "#"
+  },
+  {
+    file: "place-holder-3.png",
+    likes: 13,
+    id: 1,
+    igLink: "#"
+  },
+  {
+    file: "place-holder-4.svg",
+    likes: 52,
+    id: 1,
+    igLink: "#"
+  }
 ]
 
-// If post is video
+// If Video, put them into post videos, along with their ID
 const postVideo = [
-  "place-holder-5.mp4"
+  {
+    file: "place-holder-5.mp4",
+    likes: 23,
+    id: 5,
+    igLink: "#"
+  }
 ]
 
-// if post is carousel (post has multiple images)
+// If Carousel, Put them into post Carousel, along with their ID
 const postCarousel = [
-
-]
-
-// placeholder images
-const placeholders = [
-  "place-holder-1.svg",
-  "place-holder-2.png",
-  "place-holder-3.png",
-  "place-holder-4.svg"
-]
-
-// Placeholder likes
-const likes = [
-  19,
-  20,
-  31,
-  5,
-  28  
+  {
+    file: ["place-holder-2.png", "place-holder-3.png"],
+    likes: 42,
+    id: 6,
+    igLink: "#"
+  }
 ]
 
 // Also, every time gather profile picture, and put it in "assets/images/" as portrait.png
@@ -45,25 +64,41 @@ function formatDescription(filename) {
 }
 
 // Build gallery array
-const imagePosts = placeholders.map((file, index) => ({
-  src: `./assets/images/${file}`,
-  description: formatDescription(file),
-  likeAmount: likes[index],
-  igLink: "#",
-  type: "image"
-}));
 
-const videoPosts = postVideo.map((file, index) => ({
-  src: `./assets/images/${file}`,
-  description: formatDescription(file),
-  likeAmount: likes[index],
-  igLink: "#",
-  type: "video"
-}));
+// Images
+const imagePosts = postImage.map((post) => ({
+    src: `./assets/images/${post.file}`,
+    description: formatDescription(post.file),
+    likeAmount: post.likes,
+    igLink: post.igLink,
+    id: post.id,
+    type: "image"
+}))
+
+
+// Videos
+const videoPosts = postImage.map((post) => ({
+    src: `./assets/images/${post.file}`,
+    description: formatDescription(post.file),
+    likeAmount: post.likes,
+    igLink: post.igLink,
+    id: post.id,
+    type: "video"
+}))
+
+// Carousel
+const carouselPosts = postCarousel.map((post) => ({
+    src: post.file.map(file => `./assets/images/${file}`),
+    description: formatDescription(post.file[0]), // Uses first image name for carousel
+    likeAmount: post.likes,
+    igLink: post.igLink,
+    id: post.id,
+    type: "carousel"
+}))
 
 
 // Combine all
-const gallery = [...imagePosts, ...videoPosts]
+const gallery = [...imagePosts, ...videoPosts, ...carouselPosts]
 
 // Write to JSON
 fs.writeFileSync("./data/gallery.json", JSON.stringify(gallery, null, 2))
