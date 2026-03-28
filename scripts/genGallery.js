@@ -99,7 +99,7 @@ const carouselPosts = postCarousel.map((post) => ({
 
 // Combine all
 const gallery = [...imagePosts, ...videoPosts, ...carouselPosts]
-  .sort((a, b) => b.id - a.id) // newest to oldest - could be useful
+  .sort((a, b) => a.id - b.id) // newest to oldest - could be useful
 
 // Write to JSON
 fs.writeFileSync("./data/gallery.json", JSON.stringify(gallery, null, 2))
