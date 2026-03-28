@@ -460,7 +460,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    padding-right: 20px;
+    gap: 4px;
     border-right: 1px solid rgba(0,0,0,0.7);
 }
 
