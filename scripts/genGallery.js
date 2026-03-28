@@ -9,7 +9,7 @@ const postImage = [
 
 // If post is video
 const postVideo = [
-
+  "place-holder-5.mp4"
 ]
 
 // if post is carousel (post has multiple images)
@@ -43,12 +43,23 @@ function formatDescription(filename) {
 }
 
 // Build gallery array
-const gallery = placeholders.map((file, index) => ({
+const imagePosts = placeholders.map((file, index) => ({
   src: `./assets/images/${file}`,
   description: formatDescription(file),
   likeAmount: likes[index],
   igLink: "#"
 }));
+
+const videoPosts = postVideo.map((file, index) => ({
+  src: `./assets/images/${file}`,
+  description: formatDescription(file),
+  likeAmount: likes[index],
+  igLink: "#"
+}));
+
+
+// Combine all
+const gallery = [...imagePosts, ...videoPosts]
 
 // Write to JSON
 fs.writeFileSync("./data/gallery.json", JSON.stringify(gallery, null, 2))
