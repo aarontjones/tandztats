@@ -2,36 +2,76 @@
   {
     "src": "./assets/images/place-holder-1.svg",
     "description": "place holder 1",
-    "likeAmount": 19,
+    "likeAmount": 12,
     "igLink": "#",
+    "id": 1,
     "type": "image"
   },
   {
     "src": "./assets/images/place-holder-2.png",
     "description": "place holder 2",
-    "likeAmount": 20,
+    "likeAmount": 152,
     "igLink": "#",
+    "id": 1,
     "type": "image"
   },
   {
     "src": "./assets/images/place-holder-3.png",
     "description": "place holder 3",
-    "likeAmount": 31,
+    "likeAmount": 13,
     "igLink": "#",
+    "id": 1,
     "type": "image"
   },
   {
     "src": "./assets/images/place-holder-4.svg",
     "description": "place holder 4",
-    "likeAmount": 5,
+    "likeAmount": 52,
     "igLink": "#",
+    "id": 1,
     "type": "image"
   },
   {
-    "src": "./assets/images/place-holder-5.mp4",
-    "description": "place holder 5",
-    "likeAmount": 19,
+    "src": "./assets/images/place-holder-1.svg",
+    "description": "place holder 1",
+    "likeAmount": 12,
     "igLink": "#",
+    "id": 1,
     "type": "video"
+  },
+  {
+    "src": "./assets/images/place-holder-2.png",
+    "description": "place holder 2",
+    "likeAmount": 152,
+    "igLink": "#",
+    "id": 1,
+    "type": "video"
+  },
+  {
+    "src": "./assets/images/place-holder-3.png",
+    "description": "place holder 3",
+    "likeAmount": 13,
+    "igLink": "#",
+    "id": 1,
+    "type": "video"
+  },
+  {
+    "src": "./assets/images/place-holder-4.svg",
+    "description": "place holder 4",
+    "likeAmount": 52,
+    "igLink": "#",
+    "id": 1,
+    "type": "video"
+  },
+  {
+    "src": [
+      "./assets/images/place-holder-2.png",
+      "./assets/images/place-holder-3.png"
+    ],
+    "description": "place holder 2",
+    "likeAmount": 42,
+    "igLink": "#",
+    "id": 6,
+    "type": "carousel"
   }
 ]
