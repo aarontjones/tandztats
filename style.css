@@ -418,33 +418,58 @@ body {
     pointer-events: all;
 }
 
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .modal-image {
     max-width: 80%;
-    max-height: 70%;
+    max-height: 60%;
     border-radius: 10px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 
 /* Modal Likes and Info*/
-.modal-link-container,
 .modal-info {
-    width: 35%;
+    width: 81%; /* hard coded as if at 100% the info container spills beyond the picture */
     flex-direction: row;
-    margin-top: 10px;
+    margin-top: 2px;
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+
     background-color: rgba(255,255,255,0.85);
-    opacity: 1;
     border: 1px solid black;
     border-radius: 16px;
     padding: 15px;
 }
 
-.modal-link-container {
-    width: 250px;
+.modal-like-container {
+    width: 10%;
+    display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    border-right: 1px solid rgba(0,0,0,0.7);
+}
+
+.modal-desc-container {
+    width: 90%;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-heart {
+    color: red;
+    font-size: 18px;
+}
+
+.modal-likes {
+    font-size: 14px;
 }
 
 .modal-likes {
@@ -683,7 +708,18 @@ body {
         padding: 15px;
     }
 
-    .modal-link-container {
-        width: 175px;
+    .modal-like-container {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.7);
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        justify-content: flex-start; /* optional: aligns left instead of center */
     }
+
+    .modal-desc-container {
+        width: 100%;
+        padding-left: 0;
+    }
+
 }

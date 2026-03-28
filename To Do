@@ -1,9 +1,5 @@
 
-1) Clean up gallery modal overlay thing - make it so when you click or tap on the image, it takes it to the link instead of having it below
-
-2) Clean up visuals for gallery modals - Proper centering and layout with red heart icon to indicate number is amount of likes
-
-3) Allow implementation for video (NOT REELS) and other format (idk what its called but one post has a lot of photos - gallery i guess)
+2) Allow implementation for video (NOT REELS) and other format (idk what its called but one post has a lot of photos - gallery i guess)
 
 USE GITHUB SECRETS TO PROTECT API KEY - CALL IT FROM genGallery.js to protect API key!!!!!!!!!
 

@@ -1,5 +1,22 @@
 const fs = require("fs")
 
+// Load in instagram api
+
+// If post is a normal image
+const postImage = [
+
+]
+
+// If post is video
+const postVideo = [
+
+]
+
+// if post is carousel (post has multiple images)
+const postCarousel = [
+
+]
+
 // placeholder images
 const placeholders = [
   "place-holder-1.svg",
@@ -15,6 +32,8 @@ const likes = [
   31,
   5  
 ]
+
+// Also, every time gather profile picture, and put it in "assets/images/" as portrait.png
 
 // Helper to format description nicely
 function formatDescription(filename) {

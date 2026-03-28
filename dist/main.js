@@ -220,7 +220,11 @@ function galleryPage() {
                 modalImage.src = img.src;
                 modalCaption.innerText = img.description;
                 modalLikes.innerText = img.likeAmount;
-                modalLink.href = img.igLink;
+                // clickable image
+                modalImage.onclick = (e) => {
+                    e.stopPropagation();
+                    window.open(img.igLink, "_blank");
+                };
                 modalOverlay.classList.add("active");
             });
             wrapper.appendChild(image);
@@ -374,27 +378,39 @@ galleryDisclaimer.innerText = "ALL IMAGES DISPLAYED ARE INTELLECTUAL PROPERTY OF
 // Modal for gallery images
 const modalOverlay = document.createElement("div");
 modalOverlay.className = "modal-overlay";
+// Modal wrapper
+const modalContent = document.createElement("div");
+modalContent.className = "modal-content";
+// Modal image
 const modalImage = document.createElement("img");
 modalImage.className = "modal-image";
-// Ig Link
-const modalLinkContainer = document.createElement("div");
-modalLinkContainer.className = "modal-link-container";
-const modalLink = document.createElement("a");
-modalLink.className = "modal-link";
-modalLink.innerText = "Check out on Instagram";
-modalLinkContainer.appendChild(modalLink);
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div");
 modalInfoContainer.className = "modal-info";
+// Left side modal - Likes and a heart
+const modalLikeContainer = document.createElement("div");
+modalLikeContainer.className = "modal-like-container";
+// Heart
+const heart = document.createElement("span"); // Using span so i dont have to import another image
+heart.innerText = "♥";
+heart.className = "modal-heart";
+// Likes
 const modalLikes = document.createElement("p");
 modalLikes.className = "modal-likes";
+modalLikeContainer.appendChild(heart);
+modalLikeContainer.appendChild(modalLikes);
+// Right side modal - Description container
+const modalDescContainer = document.createElement("div");
+modalDescContainer.className = "modal-desc-container";
 const modalCaption = document.createElement("p");
 modalCaption.className = "modal-caption";
-modalInfoContainer.appendChild(modalLikes);
-modalInfoContainer.appendChild(modalCaption);
-modalOverlay.appendChild(modalImage);
-modalOverlay.appendChild(modalInfoContainer);
-modalOverlay.appendChild(modalLinkContainer);
+modalDescContainer.appendChild(modalCaption);
+// Appending info container with both sides
+modalInfoContainer.appendChild(modalLikeContainer);
+modalInfoContainer.appendChild(modalDescContainer);
+modalContent.appendChild(modalImage);
+modalContent.appendChild(modalInfoContainer);
+modalOverlay.appendChild(modalContent);
 document.body.appendChild(modalOverlay);
 // Closing modal on click anywhere
 modalOverlay.addEventListener("click", () => {
