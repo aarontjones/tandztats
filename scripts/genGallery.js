@@ -27,7 +27,8 @@ function formatDescription(filename) {
 const gallery = placeholders.map((file, index) => ({
   src: `./assets/images/${file}`,
   description: formatDescription(file),
-  likeAmount: likes[index]
+  likeAmount: likes[index],
+  igLink: "#"
 }));
 
 // Write to JSON

@@ -223,6 +223,7 @@ interface GalleryImage{ // Defines shape of a gallery image
     src: string
     description: string
     likeAmount: string
+    igLink: string
 }
 
 // Gallery

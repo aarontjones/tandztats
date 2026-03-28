@@ -338,7 +338,7 @@ body {
 }
 
 .section-images.expanded {
-    max-height: 1000px;
+    max-height: 10000000px;
     opacity: 1;
 }
 
@@ -453,8 +453,6 @@ body {
     color: black;
     text-align: left;
 }
-
-
 
 /* Gallery Disclaimer */
 .gallery-disclaimer {
@@ -601,15 +599,11 @@ body {
 
 @media screen and (max-width: 568px) {
     * {
-        font-size: 9px
+        font-size: 13px
     }
 
     .main-title {
         font-size: 40px;
-    }
-
-    .tagline {
-        font-size: 10px;
     }
 
     .navbar-list {
@@ -668,6 +662,11 @@ body {
 
     .modal-info {
         flex-direction: column;
+    }
+
+    .content-container { /* Little bit wider for phone view */
+        width: 90%;
+        padding: 15px;
     }
 
 }
