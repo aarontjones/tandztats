@@ -183,3 +183,5 @@ async function run() {
   console.log("gallery.json generated")
 
 }
+
+run()
