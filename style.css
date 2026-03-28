@@ -75,7 +75,6 @@ body {
 }
 
 /* Navbar Effects */
-
 .navbar-list::after {
     content: "";
     position: absolute;
@@ -86,7 +85,6 @@ body {
     background-color: black;
     transition: width 0.3s ease;
 }
-
 .navbar-list:hover::after {
     width: 100%;
 }
@@ -313,7 +311,7 @@ body {
 
 /*                                  Gallery page only                                  */
 .gallery-container {
-    width: 95%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -428,6 +426,7 @@ body {
 }
 
 /* Modal Likes and Info*/
+.modal-link-container,
 .modal-info {
     width: 35%;
     flex-direction: row;
@@ -435,11 +434,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    background-color: white;
+    background-color: rgba(255,255,255,0.85);
     opacity: 1;
     border: 1px solid black;
     border-radius: 16px;
     padding: 15px;
+}
+
+.modal-link-container {
+    width: 250px;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-likes {
@@ -452,6 +457,15 @@ body {
     opacity: 2;
     color: black;
     text-align: left;
+}
+
+/* Removing text decoration from modal link - same as navbar */
+.modal-link,
+.modal-link:visited,
+.modal-link:active,
+.modal-link:hover {
+    text-decoration: none;
+    color: black;
 }
 
 /* Gallery Disclaimer */
@@ -669,4 +683,7 @@ body {
         padding: 15px;
     }
 
+    .modal-link-container {
+        width: 175px;
+    }
 }

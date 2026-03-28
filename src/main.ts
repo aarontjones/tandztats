@@ -241,8 +241,9 @@ async function galleryPage(): Promise<HTMLElement> {
     const subtext = document.createElement("p")
     subtext.className = "subtext"
     subtext.innerText = `
-    Below is some of my work. It consists of mostly flash art and fresh tattoos.
-    For more information, you can click on each image to get a closer look.
+    Below is some of my work. It consists of mostly flash art and fresh tattoos. For more information, you can click on each image to get a closer look.
+
+    When viewing a piece of work, you can tap on the image to go directly to the instagram post.
     `
 
     // Appending Gallery Container
@@ -271,6 +272,7 @@ async function galleryPage(): Promise<HTMLElement> {
             modalImage.src = img.src
             modalCaption.innerText = img.description
             modalLikes.innerText = img.likeAmount
+            modalLink.href = img.igLink
             modalOverlay.classList.add("active")
         })
 
@@ -458,6 +460,16 @@ modalOverlay.className = "modal-overlay"
 const modalImage = document.createElement("img")
 modalImage.className = "modal-image"
 
+// Ig Link
+const modalLinkContainer = document.createElement("div")
+modalLinkContainer.className = "modal-link-container"
+
+const modalLink = document.createElement("a")
+modalLink.className = "modal-link"
+modalLink.innerText = "Check out on Instagram"
+
+modalLinkContainer.appendChild(modalLink)
+
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div")
 modalInfoContainer.className = "modal-info"
@@ -473,6 +485,7 @@ modalInfoContainer.appendChild(modalCaption)
 
 modalOverlay.appendChild(modalImage)
 modalOverlay.appendChild(modalInfoContainer)
+modalOverlay.appendChild(modalLinkContainer)
 
 document.body.appendChild(modalOverlay)
 
