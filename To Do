@@ -1,5 +1,7 @@
 USE GITHUB SECRETS TO PROTECT API KEY - CALL IT FROM genGallery.js to protect API key!!!!!!!!!
 
+1) Make Gallery container scrollable so it isnt super long when api call is made
+
 -----------------IMPORTANT WORKFLOW FOR GALLERY API CALL
 genGallery.js generates gallery.json
 ->
@@ -13,9 +15,10 @@ Replace all placeholders w/ functionalities.
 
 2) In genGallery.js, when calling API, set portrait picture to be the users profile picture.
 
-1) Write js script that for every 3 days, it chooses new images from the json file for the featured work (IF IT CHOOSES A GALLERY STYLE POST - CHOOSE RANDOM POST) - pretty simple - as well as github action to do so
-
-
 3) Make portrait.png the flavicon
+
+4) Write js script that for every 3 days, it chooses new images from the json file for the featured work (IF IT CHOOSES A GALLERY STYLE POST - CHOOSE RANDOM POST) - pretty simple - as well as github action to do so
+
+
 
 

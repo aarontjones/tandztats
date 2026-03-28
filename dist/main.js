@@ -162,7 +162,7 @@ function homePage() {
     const imageContainer = document.createElement("div");
     imageContainer.className = "image-container";
     const portrait = document.createElement("img");
-    portrait.src = "./assets/images/place-holder-1.svg";
+    portrait.src = "./assets/images/portrait.jpg";
     portrait.className = "portrait-image";
     imageContainer.appendChild(portrait);
     // Append both sides into container
