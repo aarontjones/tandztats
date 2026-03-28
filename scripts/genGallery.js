@@ -1,4 +1,5 @@
 const fs = require("fs")
+const { type } = require("os")
 
 // Load in instagram api
 
@@ -30,7 +31,8 @@ const likes = [
   19,
   20,
   31,
-  5  
+  5,
+  28  
 ]
 
 // Also, every time gather profile picture, and put it in "assets/images/" as portrait.png
@@ -47,14 +49,16 @@ const imagePosts = placeholders.map((file, index) => ({
   src: `./assets/images/${file}`,
   description: formatDescription(file),
   likeAmount: likes[index],
-  igLink: "#"
+  igLink: "#",
+  type: "image"
 }));
 
 const videoPosts = postVideo.map((file, index) => ({
   src: `./assets/images/${file}`,
   description: formatDescription(file),
   likeAmount: likes[index],
-  igLink: "#"
+  igLink: "#",
+  type: "video"
 }));
 
 
