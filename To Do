@@ -11,9 +11,7 @@ Replace all placeholders w/ functionalities.
 
 1) Rewrite genGallery.js to implement instagram api. Things needed - Link to post, Description, Like amount, unique ID and sorting by post date (Newest at top left, oldest at bottom right)
 
-2) In genGallery.js, when calling API, set portrait picture to be the users profile picture.
-
-4) Write js script that for every 3 days, it chooses new images from the json file for the featured work (IF IT CHOOSES A GALLERY STYLE POST - CHOOSE RANDOM POST) - pretty simple - as well as github action to do so
+2) Write js script that for every 3 days, it chooses new images from the json file for the featured work (IF IT CHOOSES A GALLERY STYLE POST - CHOOSE RANDOM POST) - pretty simple - as well as github action to do so
 
 
 

@@ -264,109 +264,118 @@ async function galleryPage(): Promise<HTMLElement> {
         const wrapper = document.createElement("div")
         wrapper.className = "image-wrapper"
 
-        // If img is an image
-        if (img.type === "image") {
-            const image = document.createElement("img")
-            image.src = (img.src as string)
-            image.alt = img.description
-            image.className = "gallery-image"
-            image.loading = "lazy" // Not even sure if this works
+        // reworked to be switch instead of 3 if statements
+        switch (img.type) {
+            // If img is an image
+            case "image": {
+                const image = document.createElement("img")
+                image.src = (img.src as string)
+                image.alt = img.description
+                image.className = "gallery-image"
+                image.loading = "lazy" // Not even sure if this works
 
-            // Click to open image modal
-            image.addEventListener("click", () => {
-                modalCounter.innerText = "" // Hides carousel counter
-                modalCounter.style.display = "none"
-                modalImage.style.display = "block"
-                modalVideo.style.display = "none"
+                // Click to open image modal
+                image.addEventListener("click", () => {
+                    modalCounter.innerText = "" // Hides carousel counter
+                    modalCounter.style.display = "none"
+                    modalImage.style.display = "block"
+                    modalVideo.style.display = "none"
 
-                modalImage.src = (img.src as string)
-                modalCaption.innerText = img.description
-                modalLikes.innerText = img.likeAmount
+                    modalImage.src = (img.src as string)
+                    modalCaption.innerText = img.description
+                    modalLikes.innerText = img.likeAmount
 
-                // clickable image
-                modalImage.onclick = (e) => {
-                    e.stopPropagation()
-                    window.open(img.igLink, "_blank")
-                }
-
-                modalOverlay.classList.add("active")
-            })
-
-            wrapper.appendChild(image)
-        } 
-
-        // If image is a video, set image to thumbnail of video and have video play as modal
-        if (img.type === "video") {  
-            const video = document.createElement("video")
-            video.src = (img.src as string)
-            video.className = "gallery-image"
-
-            // Click to open video modal
-            video.addEventListener("click", () => {
-                modalCounter.innerText = "" // Hides carousel counter
-                modalCounter.style.display = "none"
-                modalImage.style.display = "none"
-                modalVideo.style.display = "block"
-
-                modalVideo.src = (img.src as string)
-                modalVideo.currentTime = 0
-                modalVideo.play() // Plays automatically
-
-                modalCaption.innerText = img.description
-                modalLikes.innerText = img.likeAmount
-
-                modalOverlay.classList.add("active")
-            })
-
-            wrapper.appendChild(video)
-        }
-
-        // If image is a carousel, set image to first element, and have it run like short gallery in home page.
-        if (img.type === "carousel") {
-            const carousel = document.createElement("img")
-            carousel.src = (img.src as string[])[0]!
-            carousel.className = "gallery-image"
-
-            carousel.addEventListener("click", () => {
-                modalCounter.style.display = "block"
-                modalImage.style.display = "block"
-                modalVideo.style.display = "none" // removes video
-
-                // Update counter
-                function updateCounter(index: number, total: number) {
-                    modalCounter.innerText = `${index + 1} | ${total}`
-                }
-
-                const images = img.src as string[]
-                let currIndex = 0
-
-                updateCounter(currIndex, images.length)
-
-                modalImage.src = images[currIndex]!
-                modalCaption.innerText = img.description
-                modalLikes.innerText = img.likeAmount
-
-                // Click image to cycle through carousel
-                modalImage.onclick = (e) => {
-                    e.stopPropagation()
-
-                    // Backwards and forward
-                    if (e.clientX > window.innerWidth / 2) {
-                        currIndex = (currIndex + 1) % images.length
-                    } else {
-                        currIndex = (currIndex - 1 + images.length) % images.length
+                    // clickable image
+                    modalImage.onclick = (e) => {
+                        e.stopPropagation()
+                        window.open(img.igLink, "_blank")
                     }
 
-                    modalImage.src = images[currIndex]!
+                    modalOverlay.classList.add("active")
+                })
+
+                wrapper.appendChild(image)
+                break
+            } 
+        
+            // If image is a video, set image to thumbnail of video and have video play as modal
+            case "video": {  
+                const video = document.createElement("video")
+                video.src = (img.src as string)
+                video.className = "gallery-image"
+
+                // Click to open video modal
+                video.addEventListener("click", () => {
+                    modalCounter.innerText = "" // Hides carousel counter
+                    modalCounter.style.display = "none"
+                    modalImage.style.display = "none"
+                    modalVideo.style.display = "block"
+
+                    modalVideo.src = (img.src as string)
+                    modalVideo.currentTime = 0
+                    modalVideo.play() // Plays automatically
+
+                    modalCaption.innerText = img.description
+                    modalLikes.innerText = img.likeAmount
+
+                    modalOverlay.classList.add("active")
+                })
+
+                wrapper.appendChild(video)
+                break
+            }
+
+            // If image is a carousel, set image to first element, and have it run like short gallery in home page.
+            case "carousel": {
+                const carousel = document.createElement("img")
+                carousel.src = (img.src as string[])[0]!
+                carousel.className = "gallery-image"
+
+                carousel.addEventListener("click", () => {
+                    modalCounter.style.display = "block"
+                    modalImage.style.display = "block"
+                    modalVideo.style.display = "none" // removes video
+
+                    // Update counter
+                    function updateCounter(index: number, total: number) {
+                        modalCounter.innerText = `${index + 1} | ${total}`
+                    }
+
+                    const images = img.src as string[]
+                    let currIndex = 0
+
                     updateCounter(currIndex, images.length)
-                }
 
-                modalOverlay.classList.add("active")
-            })
+                    modalImage.src = images[currIndex]!
+                    modalCaption.innerText = img.description
+                    modalLikes.innerText = img.likeAmount
 
-            wrapper.appendChild(carousel)
+                    // Click image to cycle through carousel
+                    modalImage.onclick = (e) => {
+                        e.stopPropagation()
+
+                        // Backwards and forward
+                        if (e.clientX > window.innerWidth / 2) {
+                            currIndex = (currIndex + 1) % images.length
+                        } else {
+                            currIndex = (currIndex - 1 + images.length) % images.length
+                        }
+
+                        modalImage.src = images[currIndex]!
+                        updateCounter(currIndex, images.length)
+                    }
+
+                    modalOverlay.classList.add("active")
+                })
+
+                wrapper.appendChild(carousel)
+                break
+            }
+
+            default:
+                console.warn(`Unknow Gallery Type: ${img.type}`)
+                break
         }
-
         imageContainer.appendChild(wrapper)
     })
 
