@@ -22,7 +22,7 @@ jobs:
           node-version: 20
 
       - name: Generate gallery JSON
-        run: node scripts/genGallery.js
+        run: node scripts/genFeatured.js
 
       - name: Commit changes
         env:
