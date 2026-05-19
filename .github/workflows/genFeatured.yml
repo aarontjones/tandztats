@@ -30,6 +30,6 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git add data/gallery.json
+          git add data/featured.json
           git commit -m "Update gallery" || echo "No changes"
           git push https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}.git HEAD:main
