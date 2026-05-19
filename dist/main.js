@@ -181,134 +181,71 @@ function homePage() {
     homeWrapper.appendChild(homeContainer);
     return homeWrapper;
 }
+function createBlogEntry(id, date, blurb, imageFilenames, description) {
+    return { id, date, blurb, imageFilenames, description };
+}
+function parseBlogDate(dateStr) {
+    const [day, month, year] = dateStr.split("/").map(Number);
+    return new Date(year, month - 1, day);
+}
+// Building blog card
+function buildBlogCard(entry) {
+    const card = document.createElement("div");
+    card.className = "blog-entry";
+    const header = document.createElement("div");
+    header.className = "blog-entry-header";
+    const blurb = document.createElement("span");
+    blurb.className = "blog-entry-blurb";
+    blurb.innerText = entry.blurb;
+    const date = document.createElement("span");
+    date.className = "blog-entry-date";
+    date.innerText = entry.date;
+    header.appendChild(blurb);
+    header.appendChild(date);
+    // Image grid
+    const imageGrid = document.createElement("div");
+    imageGrid.className = "blog-entry-images";
+    entry.imageFilenames.forEach((filename, index) => {
+        const img = document.createElement("img");
+        img.src = `assets/blogs/${entry.id}/${filename}`;
+        img.alt = `${entry.blurb} - ${filename}`;
+        img.className = "blog-entry-img";
+        // Clickable images
+        img.addEventListener("click", () => {
+            var _a;
+            modalImage.src = img.src;
+            modalCaption.innerText = (_a = entry.description[index]) !== null && _a !== void 0 ? _a : "";
+            modalImage.style.display = "block";
+            modalOverlay.classList.add("active");
+        });
+        imageGrid.appendChild(img);
+    });
+    card.appendChild(header);
+    card.appendChild(imageGrid);
+    return card;
+}
+const blogEntries = [
+    // Format - ID, Date, Blurb, Image(s)
+    createBlogEntry(1, "19/5/2026", "Hand / Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], ["Experimenting with hand poke and machine poke designs.", "Experimenting with hand poke and machine poke designs."])
+];
 // Gallery
 function galleryPage() {
-    return __awaiter(this, void 0, void 0, function* () {
-        // Same as booking page, just wider
-        const galleryContainer = document.createElement("div");
-        galleryContainer.className = "gallery-container";
-        // Gallery Title
-        const galleryTitle = document.createElement("h2");
-        galleryTitle.className = "page-title";
-        galleryTitle.innerText = "Gallery";
-        // Gallery Subtext
-        const subtext = document.createElement("p");
-        subtext.className = "subtext";
-        subtext.innerText = `
-    Below is some of my work. It consists of mostly flash art and fresh tattoos. For more information, you can click on each image to get a closer look.
-
-    When viewing a piece of work, you can tap on the image to go directly to the instagram post.
-    `;
-        // Appending Gallery Container
-        galleryContainer.appendChild(galleryTitle);
-        galleryContainer.appendChild(subtext);
-        // Reading from Json file
-        const res = yield fetch("/data/gallery.json");
-        const data = yield res.json();
-        // Gallery Section
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "gallery-images";
-        data.forEach((img) => {
-            const wrapper = document.createElement("div");
-            wrapper.className = "image-wrapper";
-            // reworked to be switch instead of 3 if statements
-            switch (img.type) {
-                // If img is an image
-                case "image": {
-                    const image = document.createElement("img");
-                    image.src = img.src;
-                    image.alt = img.description;
-                    image.className = "gallery-image";
-                    image.loading = "lazy"; // Not even sure if this works
-                    // Click to open image modal
-                    image.addEventListener("click", () => {
-                        modalCounter.innerText = ""; // Hides carousel counter
-                        modalCounter.style.display = "none";
-                        modalImage.style.display = "block";
-                        modalVideo.style.display = "none";
-                        modalImage.src = img.src;
-                        modalCaption.innerText = img.description;
-                        modalLikes.innerText = img.likeAmount;
-                        // clickable image
-                        modalImage.onclick = (e) => {
-                            e.stopPropagation();
-                            window.open(img.igLink, "_blank");
-                        };
-                        modalOverlay.classList.add("active");
-                    });
-                    wrapper.appendChild(image);
-                    break;
-                }
-                // If image is a video, set image to thumbnail of video and have video play as modal
-                case "video": {
-                    const video = document.createElement("video");
-                    video.src = img.src;
-                    video.className = "gallery-image";
-                    // Click to open video modal
-                    video.addEventListener("click", () => {
-                        modalCounter.innerText = ""; // Hides carousel counter
-                        modalCounter.style.display = "none";
-                        modalImage.style.display = "none";
-                        modalVideo.style.display = "block";
-                        modalVideo.src = img.src;
-                        modalVideo.currentTime = 0;
-                        modalVideo.play(); // Plays automatically
-                        modalCaption.innerText = img.description;
-                        modalLikes.innerText = img.likeAmount;
-                        modalOverlay.classList.add("active");
-                    });
-                    wrapper.appendChild(video);
-                    break;
-                }
-                // If image is a carousel, set image to first element, and have it run like short gallery in home page.
-                case "carousel": {
-                    const carousel = document.createElement("img");
-                    carousel.src = img.src[0];
-                    carousel.className = "gallery-image";
-                    carousel.addEventListener("click", () => {
-                        modalCounter.style.display = "block";
-                        modalImage.style.display = "block";
-                        modalVideo.style.display = "none"; // removes video
-                        // Update counter
-                        function updateCounter(index, total) {
-                            modalCounter.innerText = `${index + 1} | ${total}`;
-                        }
-                        const images = img.src;
-                        let currIndex = 0;
-                        updateCounter(currIndex, images.length);
-                        modalImage.src = images[currIndex];
-                        modalCaption.innerText = img.description;
-                        modalLikes.innerText = img.likeAmount;
-                        // Click image to cycle through carousel
-                        modalImage.onclick = (e) => {
-                            e.stopPropagation();
-                            // Backwards and forward
-                            if (e.clientX > window.innerWidth / 2) {
-                                currIndex = (currIndex + 1) % images.length;
-                            }
-                            else {
-                                currIndex = (currIndex - 1 + images.length) % images.length;
-                            }
-                            modalImage.src = images[currIndex];
-                            updateCounter(currIndex, images.length);
-                        };
-                        modalOverlay.classList.add("active");
-                    });
-                    wrapper.appendChild(carousel);
-                    break;
-                }
-                default:
-                    console.warn(`Unknow Gallery Type: ${img.type}`);
-                    break;
-            }
-            imageContainer.appendChild(wrapper);
-        });
-        const scrollArea = document.createElement("div");
-        scrollArea.className = "gallery-scroll";
-        scrollArea.appendChild(imageContainer);
-        galleryContainer.appendChild(scrollArea);
-        return galleryContainer;
+    const galleryContainer = document.createElement("div");
+    galleryContainer.className = "gallery-container";
+    const galleryTitle = document.createElement("h2");
+    galleryTitle.className = "page-title";
+    galleryTitle.innerText = "Gallery";
+    const subtext = document.createElement("p");
+    subtext.className = "subtext";
+    subtext.innerText = "Below is some of my work. Click an image for a closer look.";
+    galleryContainer.appendChild(galleryTitle);
+    galleryContainer.appendChild(subtext);
+    // sort newest first
+    const sorted = [...blogEntries].sort((a, b) => parseBlogDate(b.date).getTime() - parseBlogDate(a.date).getTime());
+    sorted.forEach((entry) => {
+        galleryContainer.appendChild(buildBlogCard(entry));
     });
+    return galleryContainer;
 }
 // Aftercare
 function aftercarePage() {
@@ -460,46 +397,27 @@ modalContent.className = "modal-content";
 // Modal image
 const modalImage = document.createElement("img");
 modalImage.className = "modal-image";
-// Modal Video
-const modalVideo = document.createElement("video");
-modalVideo.className = "modal-video";
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div");
 modalInfoContainer.className = "modal-info";
-// Left side modal - Likes and a heart
-const modalLikeContainer = document.createElement("div");
-modalLikeContainer.className = "modal-like-container";
-// Heart
-const heart = document.createElement("span"); // Using span so i dont have to import another image
-heart.innerText = "♥";
-heart.className = "modal-heart";
-// Likes
-const modalLikes = document.createElement("p");
-modalLikes.className = "modal-likes";
-modalLikeContainer.appendChild(heart);
-modalLikeContainer.appendChild(modalLikes);
-// Right side modal - Description container
+// Description container
 const modalDescContainer = document.createElement("div");
 modalDescContainer.className = "modal-desc-container";
 const modalCaption = document.createElement("p");
 modalCaption.className = "modal-caption";
 modalDescContainer.appendChild(modalCaption);
 // Appending info container with both sides
-modalInfoContainer.appendChild(modalLikeContainer);
 modalInfoContainer.appendChild(modalDescContainer);
 // Dots for gallery carousel modal overlay
 const modalCounter = document.createElement("div");
 modalCounter.className = "modal-counter";
 modalContent.appendChild(modalImage);
-modalContent.appendChild(modalVideo);
 modalContent.appendChild(modalInfoContainer);
-modalContent.appendChild(modalCounter);
 modalOverlay.appendChild(modalContent);
 document.body.appendChild(modalOverlay);
 // Closing modal on click anywhere
 modalOverlay.addEventListener("click", () => {
     modalOverlay.classList.remove("active");
-    modalVideo.pause(); // Pause video
     modalImage.onclick = null; // reset carousel(s)
 });
 // Rendering Page

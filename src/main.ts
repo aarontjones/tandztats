@@ -219,171 +219,105 @@ function homePage(): HTMLElement {
     return homeWrapper
 }
 
-interface GalleryImage{ // Defines shape of a gallery image
-    src: string | string[]
-    description: string
-    likeAmount: string
-    igLink: string
-    id: string
-    type: string
+// Blog Gallery
+interface BlogEntry {
+    id: number
+    date: string
+    blurb: string
+    imageFilenames: string[]
+    description: string[]
 }
 
+function createBlogEntry(
+    id: number,
+    date: string,
+    blurb: string,
+    imageFilenames: string[],
+    description: string[],
+): BlogEntry {
+    return {id, date, blurb, imageFilenames, description}
+}
+
+function parseBlogDate(dateStr: string): Date {
+    const [day, month, year] = dateStr.split("/").map(Number)
+    return new Date(year!, month! - 1, day!)
+}
+
+// Building blog card
+function buildBlogCard(entry: BlogEntry): HTMLElement {
+    const card = document.createElement("div")
+    card.className = "blog-entry"
+
+    const header = document.createElement("div")
+    header.className = "blog-entry-header"
+
+    const blurb = document.createElement("span")
+    blurb.className = "blog-entry-blurb"
+    blurb.innerText = entry.blurb
+
+    const date = document.createElement("span")
+    date.className = "blog-entry-date"
+    date.innerText = entry.date
+
+    header.appendChild(blurb)
+    header.appendChild(date)
+
+    // Image grid
+    const imageGrid = document.createElement("div")
+    imageGrid.className = "blog-entry-images"
+
+    entry.imageFilenames.forEach((filename, index) => {
+        const img = document.createElement("img")
+        img.src = `assets/blogs/${entry.id}/${filename}`
+        img.alt = `${entry.blurb} - ${filename}`
+        img.className = "blog-entry-img"
+
+        // Clickable images
+        img.addEventListener("click", () => {
+            modalImage.src = img.src
+            modalCaption.innerText = entry.description[index] ?? ""
+            modalImage.style.display = "block"
+            modalOverlay.classList.add("active")
+        })
+        imageGrid.appendChild(img)
+    })
+
+    card.appendChild(header)
+    card.appendChild(imageGrid)
+    return card
+}
+
+const blogEntries: BlogEntry[] = [
+    // Format - ID, Date, Blurb, Image(s)
+    createBlogEntry(1, "19/5/2026", "Hand / Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], ["Experimenting with hand poke and machine poke designs.", "Experimenting with hand poke and machine poke designs."])
+
+]
+
 // Gallery
-async function galleryPage(): Promise<HTMLElement> {
-    // Same as booking page, just wider
+function galleryPage(): HTMLElement {
     const galleryContainer = document.createElement("div")
     galleryContainer.className = "gallery-container"
 
-    // Gallery Title
     const galleryTitle = document.createElement("h2")
     galleryTitle.className = "page-title"
     galleryTitle.innerText = "Gallery"
 
-    // Gallery Subtext
     const subtext = document.createElement("p")
     subtext.className = "subtext"
-    subtext.innerText = `
-    Below is some of my work. It consists of mostly flash art and fresh tattoos. For more information, you can click on each image to get a closer look.
+    subtext.innerText = "Below is some of my work. Click an image for a closer look."
 
-    When viewing a piece of work, you can tap on the image to go directly to the instagram post.
-    `
-
-    // Appending Gallery Container
     galleryContainer.appendChild(galleryTitle)
     galleryContainer.appendChild(subtext)
 
-    // Reading from Json file
-    const res = await fetch("/data/gallery.json")
-    const data = await res.json()
+    // sort newest first
+    const sorted = [...blogEntries].sort(
+        (a, b) => parseBlogDate(b.date).getTime() - parseBlogDate(a.date).getTime()
+    )
 
-    // Gallery Section
-    const imageContainer = document.createElement("div")
-    imageContainer.className = "gallery-images"
-
-    data.forEach((img: GalleryImage) => {
-        const wrapper = document.createElement("div")
-        wrapper.className = "image-wrapper"
-
-        // reworked to be switch instead of 3 if statements
-        switch (img.type) {
-            // If img is an image
-            case "image": {
-                const image = document.createElement("img")
-                image.src = (img.src as string)
-                image.alt = img.description
-                image.className = "gallery-image"
-                image.loading = "lazy" // Not even sure if this works
-
-                // Click to open image modal
-                image.addEventListener("click", () => {
-                    modalCounter.innerText = "" // Hides carousel counter
-                    modalCounter.style.display = "none"
-                    modalImage.style.display = "block"
-                    modalVideo.style.display = "none"
-
-                    modalImage.src = (img.src as string)
-                    modalCaption.innerText = img.description
-                    modalLikes.innerText = img.likeAmount
-
-                    // clickable image
-                    modalImage.onclick = (e) => {
-                        e.stopPropagation()
-                        window.open(img.igLink, "_blank")
-                    }
-
-                    modalOverlay.classList.add("active")
-                })
-
-                wrapper.appendChild(image)
-                break
-            } 
-        
-            // If image is a video, set image to thumbnail of video and have video play as modal
-            case "video": {  
-                const video = document.createElement("video")
-                video.src = (img.src as string)
-                video.className = "gallery-image"
-
-                // Click to open video modal
-                video.addEventListener("click", () => {
-                    modalCounter.innerText = "" // Hides carousel counter
-                    modalCounter.style.display = "none"
-                    modalImage.style.display = "none"
-                    modalVideo.style.display = "block"
-
-                    modalVideo.src = (img.src as string)
-                    modalVideo.currentTime = 0
-                    modalVideo.play() // Plays automatically
-
-                    modalCaption.innerText = img.description
-                    modalLikes.innerText = img.likeAmount
-
-                    modalOverlay.classList.add("active")
-                })
-
-                wrapper.appendChild(video)
-                break
-            }
-
-            // If image is a carousel, set image to first element, and have it run like short gallery in home page.
-            case "carousel": {
-                const carousel = document.createElement("img")
-                carousel.src = (img.src as string[])[0]!
-                carousel.className = "gallery-image"
-
-                carousel.addEventListener("click", () => {
-                    modalCounter.style.display = "block"
-                    modalImage.style.display = "block"
-                    modalVideo.style.display = "none" // removes video
-
-                    // Update counter
-                    function updateCounter(index: number, total: number) {
-                        modalCounter.innerText = `${index + 1} | ${total}`
-                    }
-
-                    const images = img.src as string[]
-                    let currIndex = 0
-
-                    updateCounter(currIndex, images.length)
-
-                    modalImage.src = images[currIndex]!
-                    modalCaption.innerText = img.description
-                    modalLikes.innerText = img.likeAmount
-
-                    // Click image to cycle through carousel
-                    modalImage.onclick = (e) => {
-                        e.stopPropagation()
-
-                        // Backwards and forward
-                        if (e.clientX > window.innerWidth / 2) {
-                            currIndex = (currIndex + 1) % images.length
-                        } else {
-                            currIndex = (currIndex - 1 + images.length) % images.length
-                        }
-
-                        modalImage.src = images[currIndex]!
-                        updateCounter(currIndex, images.length)
-                    }
-
-                    modalOverlay.classList.add("active")
-                })
-
-                wrapper.appendChild(carousel)
-                break
-            }
-
-            default:
-                console.warn(`Unknow Gallery Type: ${img.type}`)
-                break
-        }
-        imageContainer.appendChild(wrapper)
+    sorted.forEach((entry) => {
+        galleryContainer.appendChild(buildBlogCard(entry))
     })
 
-    const scrollArea = document.createElement("div")
-    scrollArea.className = "gallery-scroll"
-
-    scrollArea.appendChild(imageContainer)
-    galleryContainer.appendChild(scrollArea)
     return galleryContainer
 }
 
@@ -568,31 +502,11 @@ modalContent.className = "modal-content"
 const modalImage = document.createElement("img")
 modalImage.className = "modal-image"
 
-// Modal Video
-const modalVideo = document.createElement("video")
-modalVideo.className = "modal-video"
-
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div")
 modalInfoContainer.className = "modal-info"
 
-// Left side modal - Likes and a heart
-const modalLikeContainer = document.createElement("div")
-modalLikeContainer.className = "modal-like-container"
-
-// Heart
-const heart = document.createElement("span") // Using span so i dont have to import another image
-heart.innerText = "♥"
-heart.className = "modal-heart"
-
-// Likes
-const modalLikes = document.createElement("p")
-modalLikes.className = "modal-likes"
-
-modalLikeContainer.appendChild(heart)
-modalLikeContainer.appendChild(modalLikes)
-
-// Right side modal - Description container
+// Description container
 const modalDescContainer = document.createElement("div")
 modalDescContainer.className = "modal-desc-container"
 
@@ -602,7 +516,6 @@ modalCaption.className = "modal-caption"
 modalDescContainer.appendChild(modalCaption)
 
 // Appending info container with both sides
-modalInfoContainer.appendChild(modalLikeContainer)
 modalInfoContainer.appendChild(modalDescContainer)
 
 // Dots for gallery carousel modal overlay
@@ -610,9 +523,7 @@ const modalCounter = document.createElement("div")
 modalCounter.className = "modal-counter"
 
 modalContent.appendChild(modalImage)
-modalContent.appendChild(modalVideo)
 modalContent.appendChild(modalInfoContainer)
-modalContent.appendChild(modalCounter)
 
 modalOverlay.appendChild(modalContent)
 
@@ -621,7 +532,6 @@ document.body.appendChild(modalOverlay)
 // Closing modal on click anywhere
 modalOverlay.addEventListener("click", () => {
     modalOverlay.classList.remove("active")
-    modalVideo.pause() // Pause video
     modalImage.onclick = null // reset carousel(s)
 })
 
