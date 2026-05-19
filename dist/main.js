@@ -61,125 +61,131 @@ contentContainer.className = "content-container";
 // Page Functions
 // Home (default)
 function homePage() {
-    var _a;
-    // 3 randomly selected IG images
-    const galleryWrapper = document.createElement("div");
-    galleryWrapper.className = "carousel-wrapper";
-    // Home Title
-    const homeTitle = document.createElement("h2");
-    homeTitle.className = "page-title";
-    homeTitle.innerText = "Featured Work";
-    // Temporary image list
-    const images = [
-        "./assets/images/place-holder-1.svg",
-        "./assets/images/place-holder-2.png",
-        "./assets/images/place-holder-3.png"
-    ];
-    // main image
-    const mainImage = document.createElement("img");
-    mainImage.className = "carousel-main";
-    mainImage.src = images[0]; // sets first in array to main image
-    // Thumbnail container
-    const thumbnailContainer = document.createElement("div");
-    thumbnailContainer.className = "carousel-thumbnails";
-    // Indexing and showing main image
-    let currentIndex = 0;
-    let autoScroll;
-    function showImage(index) {
+    return __awaiter(this, void 0, void 0, function* () {
         var _a;
-        // Removing 'selected' from all thumbnails
-        const thumbnails = thumbnailContainer.querySelectorAll(".carousel-thumb");
-        thumbnails.forEach((thumb) => thumb.classList.remove("selected"));
-        // Adding 'selected' class to current thumbnail
-        (_a = thumbnails[index]) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
-        mainImage.style.opacity = "0"; // Fade Out
-        setTimeout(() => {
-            mainImage.src = images[index];
-            mainImage.style.opacity = "1"; // Fade In
-            currentIndex = index;
-        }, 250); // Transition Duration
-    }
-    // Staring autoscroll for every 7 seconds
-    function startAutoScroll() {
-        autoScroll = setInterval(() => {
-            const nextIndex = (currentIndex + 1) % images.length;
-            showImage(nextIndex);
-        }, 7000); // Every 7 seconds, it scrolls
-    }
-    // Reseting auto scroll whenever clicking on thumbnail
-    function resetAutoScroll() {
-        clearInterval(autoScroll);
-        startAutoScroll();
-    }
-    // Creating thumbnails
-    images.forEach((src, index) => {
-        const thumb = document.createElement("img");
-        thumb.src = src;
-        thumb.className = "carousel-thumb";
-        thumb.addEventListener("click", () => {
-            showImage(index);
-            resetAutoScroll();
+        // 3 randomly selected IG images
+        const galleryWrapper = document.createElement("div");
+        galleryWrapper.className = "carousel-wrapper";
+        // Home Title
+        const homeTitle = document.createElement("h2");
+        homeTitle.className = "page-title";
+        homeTitle.innerText = "Featured Work";
+        // Temporary image list
+        let images = [];
+        try {
+            const res = yield fetch("./data/featured.json");
+            const data = yield res.json();
+            images = data.images;
+        }
+        catch (_b) {
+            console.error("Could not load featured.json");
+        }
+        // main image
+        const mainImage = document.createElement("img");
+        mainImage.className = "carousel-main";
+        mainImage.src = images[0]; // sets first in array to main image
+        // Thumbnail container
+        const thumbnailContainer = document.createElement("div");
+        thumbnailContainer.className = "carousel-thumbnails";
+        // Indexing and showing main image
+        let currentIndex = 0;
+        let autoScroll;
+        function showImage(index) {
+            var _a;
+            // Removing 'selected' from all thumbnails
+            const thumbnails = thumbnailContainer.querySelectorAll(".carousel-thumb");
+            thumbnails.forEach((thumb) => thumb.classList.remove("selected"));
+            // Adding 'selected' class to current thumbnail
+            (_a = thumbnails[index]) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
+            mainImage.style.opacity = "0"; // Fade Out
+            setTimeout(() => {
+                mainImage.src = images[index];
+                mainImage.style.opacity = "1"; // Fade In
+                currentIndex = index;
+            }, 250); // Transition Duration
+        }
+        // Staring autoscroll for every 7 seconds
+        function startAutoScroll() {
+            autoScroll = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % images.length;
+                showImage(nextIndex);
+            }, 7000); // Every 7 seconds, it scrolls
+        }
+        // Reseting auto scroll whenever clicking on thumbnail
+        function resetAutoScroll() {
+            clearInterval(autoScroll);
+            startAutoScroll();
+        }
+        // Creating thumbnails
+        images.forEach((src, index) => {
+            const thumb = document.createElement("img");
+            thumb.src = src;
+            thumb.className = "carousel-thumb";
+            thumb.addEventListener("click", () => {
+                showImage(index);
+                resetAutoScroll();
+            });
+            thumbnailContainer.appendChild(thumb);
         });
-        thumbnailContainer.appendChild(thumb);
-    });
-    // Initial thumbnail border
-    (_a = thumbnailContainer.querySelector(".carousel-thumb")) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
-    galleryWrapper.appendChild(mainImage);
-    galleryWrapper.appendChild(thumbnailContainer);
-    // Pausing and resuming on mouse hover and exit
-    mainImage.addEventListener("mouseenter", () => {
-        clearInterval(autoScroll);
-    });
-    mainImage.addEventListener("mouseleave", () => {
+        // Initial thumbnail border
+        (_a = thumbnailContainer.querySelector(".carousel-thumb")) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
+        galleryWrapper.appendChild(mainImage);
+        galleryWrapper.appendChild(thumbnailContainer);
+        // Pausing and resuming on mouse hover and exit
+        mainImage.addEventListener("mouseenter", () => {
+            clearInterval(autoScroll);
+        });
+        mainImage.addEventListener("mouseleave", () => {
+            startAutoScroll();
+        });
+        // Starting Initial Auto-scroll
         startAutoScroll();
-    });
-    // Starting Initial Auto-scroll
-    startAutoScroll();
-    // Homewrapper
-    const homeWrapper = document.createElement("div");
-    homeWrapper.className = "home-wrapper";
-    // Title ABOVE everything
-    const aboutTitle = document.createElement("h3");
-    aboutTitle.className = "about-title";
-    aboutTitle.innerText = "About The Artist";
-    // Main container (holds text + image)
-    const homeContainer = document.createElement("div");
-    homeContainer.className = "home-container";
-    // Left Side - About text
-    const aboutContainer = document.createElement("div");
-    aboutContainer.className = "about-container";
-    const aboutText = document.createElement("p");
-    aboutText.className = "about-text";
-    aboutText.innerText = `
+        // Homewrapper
+        const homeWrapper = document.createElement("div");
+        homeWrapper.className = "home-wrapper";
+        // Title ABOVE everything
+        const aboutTitle = document.createElement("h3");
+        aboutTitle.className = "about-title";
+        aboutTitle.innerText = "About The Artist";
+        // Main container (holds text + image)
+        const homeContainer = document.createElement("div");
+        homeContainer.className = "home-container";
+        // Left Side - About text
+        const aboutContainer = document.createElement("div");
+        aboutContainer.className = "about-container";
+        const aboutText = document.createElement("p");
+        aboutText.className = "about-text";
+        aboutText.innerText = `
     I am Harry Tandy, a Bristol and Exeter based tattoo artist.
 
     I specialise in ________
 
     I began tattoing ________
     `;
-    aboutContainer.appendChild(aboutText);
-    // Right Side - Image
-    const imageContainer = document.createElement("div");
-    imageContainer.className = "image-container";
-    const portrait = document.createElement("img");
-    portrait.src = "./assets/images/portrait.jpg";
-    portrait.className = "portrait-image";
-    imageContainer.appendChild(portrait);
-    // Append both sides into container
-    homeContainer.appendChild(aboutContainer);
-    homeContainer.appendChild(imageContainer);
-    // Name BELOW the container
-    const nameCaption = document.createElement("p");
-    nameCaption.className = "portrait-name";
-    nameCaption.innerText = "Harry Tandy";
-    // Add Name below portrait
-    imageContainer.appendChild(nameCaption);
-    // Assemble wrapper
-    homeWrapper.appendChild(homeTitle);
-    homeWrapper.appendChild(galleryWrapper);
-    homeWrapper.appendChild(aboutTitle);
-    homeWrapper.appendChild(homeContainer);
-    return homeWrapper;
+        aboutContainer.appendChild(aboutText);
+        // Right Side - Image
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "image-container";
+        const portrait = document.createElement("img");
+        portrait.src = "./assets/images/portrait.jpg";
+        portrait.className = "portrait-image";
+        imageContainer.appendChild(portrait);
+        // Append both sides into container
+        homeContainer.appendChild(aboutContainer);
+        homeContainer.appendChild(imageContainer);
+        // Name BELOW the container
+        const nameCaption = document.createElement("p");
+        nameCaption.className = "portrait-name";
+        nameCaption.innerText = "Harry Tandy";
+        // Add Name below portrait
+        imageContainer.appendChild(nameCaption);
+        // Assemble wrapper
+        homeWrapper.appendChild(homeTitle);
+        homeWrapper.appendChild(galleryWrapper);
+        homeWrapper.appendChild(aboutTitle);
+        homeWrapper.appendChild(homeContainer);
+        return homeWrapper;
+    });
 }
 function createBlogEntry(id, date, blurb, imageFilenames, description) {
     return { id, date, blurb, imageFilenames, description };
@@ -361,7 +367,7 @@ function router(path) {
     return __awaiter(this, void 0, void 0, function* () {
         switch (path) {
             case "/":
-                return homePage();
+                return yield homePage();
             case "/gallery":
                 return galleryPage();
             case "/aftercare":

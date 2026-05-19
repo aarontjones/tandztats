@@ -66,7 +66,7 @@ contentContainer.className = "content-container"
 
 // Page Functions
 // Home (default)
-function homePage(): HTMLElement {
+async function homePage(): Promise<HTMLElement> {
     // 3 randomly selected IG images
     const galleryWrapper = document.createElement("div")
     galleryWrapper.className = "carousel-wrapper"
@@ -77,12 +77,15 @@ function homePage(): HTMLElement {
     homeTitle.innerText = "Featured Work"
 
     // Temporary image list
-    const images = [
-        "./assets/images/place-holder-1.svg",
-        "./assets/images/place-holder-2.png",
-        "./assets/images/place-holder-3.png"
-    ]
-
+    let images: string[] = []
+    try {
+        const res = await fetch("./data/featured.json")
+        const data = await res.json()
+        images = data.images
+    } catch {
+        console.error("Could not load featured.json")
+    }
+ 
     // main image
     const mainImage = document.createElement("img")
     mainImage.className = "carousel-main"
@@ -459,7 +462,7 @@ function bookingPage(): HTMLElement {
 async function router(path: string): Promise<HTMLElement> {
     switch (path) {
         case "/":
-            return homePage()
+            return await homePage()
         case "/gallery":
             return galleryPage()
         case "/aftercare":
