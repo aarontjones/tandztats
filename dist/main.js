@@ -243,7 +243,7 @@ function buildBlogCard(entry) {
 }
 const blogEntries = [
     // Format - ID, Date, Blurb, Image(s), Description, Description of images in Array
-    createBlogEntry(1, "19/5/2026", "Hand & Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], "For this flash I used an automated pen made from one of my tattoo machines and a regular non-motorised pen for the smaller pieces you see.", ["The smaller designs will vary; some will be done with a machine, depending on whether they are blacket out or require whip shading. Some will be hand-poked, such as the horse and bull, to name some examples.", "These bigger designs will all be done using a machine."])
+    createBlogEntry(1, "19/5/2026", "Hand & Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], "For this flash I used an automated pen made from one of my tattoo machines and a regular non-motorised pen for the smaller pieces you see.", ["The smaller designs will vary; some will be done with a machine, depending on whether they are blacked out or require whip shading. Some will be hand-poked, such as the horse and bull, to name some examples.", "These bigger designs will all be done using a machine."])
 ];
 // Gallery
 function galleryPage() {
