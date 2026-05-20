@@ -232,7 +232,7 @@ function buildBlogCard(entry) {
 }
 const blogEntries = [
     // Format - ID, Date, Blurb, Image(s)
-    createBlogEntry(1, "19/5/2026", "Hand / Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], ["Experimenting with hand poke and machine poke designs.", "Experimenting with hand poke and machine poke designs."])
+    createBlogEntry(1, "19/5/2026", "Hand & Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], ["Experimenting with hand poke and machine poke designs - These smaller designs are to be used ", "Experimenting with hand poke and machine poke designs."])
 ];
 // Gallery
 function galleryPage() {
@@ -243,7 +243,7 @@ function galleryPage() {
     galleryTitle.innerText = "Gallery";
     const subtext = document.createElement("p");
     subtext.className = "subtext";
-    subtext.innerText = "Below is some of my work. Click an image for a closer look.";
+    subtext.innerText = "Here is a collection of my flashes. Tap on any of them to get a closer look, and press CNTRL on your keyboard to zoom in.";
     galleryContainer.appendChild(galleryTitle);
     galleryContainer.appendChild(subtext);
     // sort newest first
@@ -420,11 +420,57 @@ modalCounter.className = "modal-counter";
 modalContent.appendChild(modalImage);
 modalContent.appendChild(modalInfoContainer);
 modalOverlay.appendChild(modalContent);
+// Adding zoom onto modal overlay
+const zoomLens = document.createElement("div");
+zoomLens.className = "zoom-lens";
+document.body.appendChild(zoomLens);
+const ZOOM_FACTOR = 1.55;
+const LENS_SIZE = 180;
+let ctrlHeld = false;
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Control") {
+        ctrlHeld = true;
+        if (modalOverlay.classList.contains("active")) {
+            zoomLens.classList.add("active");
+        }
+    }
+});
+document.addEventListener("keyup", (e) => {
+    if (e.key === "Control") {
+        ctrlHeld = false;
+        zoomLens.classList.remove("active");
+    }
+});
+// Adding movement to mouse
+modalImage.addEventListener("mousemove", (e) => {
+    if (!ctrlHeld)
+        return;
+    const rect = modalImage.getBoundingClientRect();
+    const xRatio = (e.clientX - rect.left) / rect.width;
+    const yRatio = (e.clientY - rect.top) / rect.height;
+    const bgW = rect.width * ZOOM_FACTOR;
+    const bgH = rect.height * ZOOM_FACTOR;
+    const bgX = -(xRatio * bgW - LENS_SIZE / 2);
+    const bgY = -(yRatio * bgH - LENS_SIZE / 2);
+    zoomLens.style.backgroundImage = `url('${modalImage.src}')`;
+    zoomLens.style.backgroundSize = `${bgW}px ${bgH}px`;
+    zoomLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    zoomLens.style.left = `${e.clientX}px`;
+    zoomLens.style.top = `${e.clientY}px`;
+});
+modalImage.addEventListener("mouseleave", () => {
+    zoomLens.classList.remove("active");
+});
+modalImage.addEventListener("mouseenter", () => {
+    if (ctrlHeld)
+        zoomLens.classList.add("active");
+});
 document.body.appendChild(modalOverlay);
 // Closing modal on click anywhere
 modalOverlay.addEventListener("click", () => {
     modalOverlay.classList.remove("active");
-    modalImage.onclick = null; // reset carousel(s)
+    zoomLens.classList.remove("active");
+    ctrlHeld = false;
 });
 // Rendering Page
 function renderPage() {
