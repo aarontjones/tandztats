@@ -325,7 +325,7 @@ body {
 
 .blog-entry {
     border: 1px solid black;
-    margin-bottom: 2rem;
+    margin-bottom: 0.6rem;
     margin-top: 12px;
     border-radius: 12px;
 }
@@ -623,7 +623,7 @@ body {
 .aftercare-para {
     text-align: justify;
     width: 70%;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .aftercare-separate, .aftercare-products-title {
@@ -836,6 +836,10 @@ body {
 
     .main-title {
         font-size: 40px;
+    }
+
+    .carousel-main {
+        max-height: 400px;
     }
 
     .aftercare-cols {
