@@ -50,11 +50,50 @@ function createNavItem(text, href) {
     li.appendChild(link);
     return li;
 }
+// Swipe Function
+function initSwipe() {
+    const pages = ["#/", "#/gallery", "#/aftercare"];
+    let touchStartX = 0;
+    let touchStartY = 0;
+    document.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    document.addEventListener("touchend", (e) => {
+        // Dont swipe if modal is open
+        if (modalOverlay.classList.contains("active"))
+            return;
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        // Ignore if vertical more than horizontal scrolling
+        if (Math.abs(deltaY) > Math.abs(deltaX))
+            return;
+        // Ignore short swipes
+        if (Math.abs(deltaX) < 60)
+            return;
+        const currentHash = window.location.hash || "#/";
+        const currentIndex = pages.indexOf(currentHash);
+        if (currentIndex === -1)
+            return;
+        let nextIndex;
+        if (deltaX < 0) {
+            // Swiping left -> page to the right
+            nextIndex = Math.min(currentIndex + 1, pages.length - 1);
+        }
+        else {
+            // Swiping right -> page to the left
+            nextIndex = Math.max(currentIndex - 1, 0);
+        }
+        if (nextIndex !== currentIndex) {
+            window.history.pushState({}, "", pages[nextIndex]);
+            renderPage();
+        }
+    }, { passive: true });
+}
 // Create Nav items
 const homeItem = createNavItem("Home", "#/");
 const galleryItem = createNavItem("Gallery", "#/gallery");
 const aftercareItem = createNavItem("Aftercare", "#/aftercare");
-const bookingItem = createNavItem("Booking", "#/booking");
 // Content Container - container for all different pages
 const contentContainer = document.createElement("div");
 contentContainer.className = "content-container";
@@ -68,7 +107,7 @@ function homePage() {
         galleryWrapper.className = "carousel-wrapper";
         // Home Title
         const homeTitle = document.createElement("h2");
-        homeTitle.className = "page-title";
+        homeTitle.className = "about-title";
         homeTitle.innerText = "Featured Work";
         // Temporary image list
         let images = [];
@@ -145,7 +184,7 @@ function homePage() {
         homeWrapper.className = "home-wrapper";
         // Title ABOVE everything
         const aboutTitle = document.createElement("h3");
-        aboutTitle.className = "about-title";
+        aboutTitle.className = "page-title";
         aboutTitle.innerText = "About The Artist";
         // Main container (holds text + image)
         const homeContainer = document.createElement("div");
@@ -179,11 +218,27 @@ function homePage() {
         nameCaption.innerText = "Harry Tandy";
         // Add Name below portrait
         imageContainer.appendChild(nameCaption);
+        // Short Booking Section
+        const bookingTitle = document.createElement("h2");
+        bookingTitle.className = "about-title";
+        bookingTitle.innerText = "Booking";
+        const bookingSection = document.createElement("div");
+        bookingSection.className = "short-booking-container";
+        const bookingInfo = document.createElement("p");
+        bookingInfo.className = "booking-text";
+        bookingInfo.innerText = `
+    To enquire about booking and pricing for tattoos, Hand sized ones are around X, and Y sized ones are around Z. Feel free to message about tattoos directly, by direct messaging me on Instagram (link below).
+
+    As for booking, you will still need to message me directly on Instagram.
+    `;
+        bookingSection.appendChild(bookingInfo);
         // Assemble wrapper
-        homeWrapper.appendChild(homeTitle);
-        homeWrapper.appendChild(galleryWrapper);
         homeWrapper.appendChild(aboutTitle);
         homeWrapper.appendChild(homeContainer);
+        homeWrapper.appendChild(homeTitle);
+        homeWrapper.appendChild(galleryWrapper);
+        homeWrapper.appendChild(bookingTitle);
+        homeWrapper.appendChild(bookingSection);
         return homeWrapper;
     });
 }
@@ -369,38 +424,6 @@ function aftercarePage() {
     aftercareContainer.appendChild(printPage); // Print Symbol
     return aftercareContainer;
 }
-// Booking
-function bookingPage() {
-    // For booking, I want a simple box with information about booking, including an Instagram link
-    const bookingContainer = document.createElement("div");
-    bookingContainer.className = "booking-container";
-    // Booking Title
-    const bookingTitle = document.createElement("h2");
-    bookingTitle.className = "page-title";
-    bookingTitle.innerText = "Booking";
-    // Booking Info
-    const bookingInfo = document.createElement("p");
-    bookingInfo.className = "booking-info";
-    bookingInfo.innerText = // booking information
-        `
-    Currently, all booking goes directly through my Instagram DM's.
-    
-    If you would be interested in booking a tattoo, you can click on the Instagram logo below to be taken to my Instagram account, where we can discuss appointment times.
-    `;
-    // Instagram link
-    const instagramLink = document.createElement("a");
-    instagramLink.href = "https://www.instagram.com/tandz.tat/";
-    instagramLink.target = "_blank";
-    instagramLink.className = "centered-link";
-    const instagramIcon = document.createElement("img");
-    instagramIcon.src = "./assets/icons/instagram.svg";
-    instagramIcon.className = "centered-icon";
-    instagramLink.appendChild(instagramIcon);
-    bookingContainer.appendChild(bookingTitle);
-    bookingContainer.appendChild(bookingInfo);
-    bookingContainer.appendChild(instagramLink);
-    return bookingContainer;
-}
 // Router - Switches between pages, sharing title and navbar
 function router(path) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -411,8 +434,6 @@ function router(path) {
                 return galleryPage();
             case "/aftercare":
                 return aftercarePage();
-            case "/booking":
-                return bookingPage();
             default:
                 const div = document.createElement("div");
                 div.innerText = "404 Not Found";
@@ -468,7 +489,7 @@ document.body.appendChild(zoomLens);
 const ZOOM_FACTOR = 1.45;
 let lensHeld = false;
 function getLensSize() {
-    return window.innerWidth <= 768 ? 220 : 180; // If mobile view: bigger lens.
+    return window.innerWidth <= 768 ? 210 : 180; // If mobile view: bigger lens.
 }
 function applyZoom(clientX, clientY) {
     const LENS_SIZE = getLensSize();
@@ -479,13 +500,14 @@ function applyZoom(clientX, clientY) {
     const bgH = rect.height * ZOOM_FACTOR;
     const bgX = -(xRatio * bgW - LENS_SIZE / 2);
     const bgY = -(yRatio * bgH - LENS_SIZE / 2);
+    const isMobile = window.innerWidth <= 768;
     zoomLens.style.width = `${LENS_SIZE}px`;
     zoomLens.style.height = `${LENS_SIZE}px`;
     zoomLens.style.backgroundImage = `url('${modalImage.src}')`;
     zoomLens.style.backgroundSize = `${bgW}px ${bgH}px`;
     zoomLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
-    zoomLens.style.left = `${clientX}px`;
-    zoomLens.style.top = `${clientY}px`;
+    zoomLens.style.left = `${clientX - (isMobile ? 35 : 0)}px`; // offset by 50 pixels if its mobile
+    zoomLens.style.top = `${clientY - (isMobile ? 35 : 0)}px`;
 }
 // Mouse - Hold Click to zoom
 modalImage.addEventListener("mousedown", () => {
@@ -544,14 +566,7 @@ function renderPage() {
         const path = window.location.hash.slice(1) || "/";
         const page = yield router(path);
         contentContainer.appendChild(page);
-        // If Page is booking, dont show footer ig link - do this cause link in booking goes directly to DM's
-        if (path !== "/booking") {
-            contentContainer.appendChild(footerInstagramLink);
-        }
-        // If page is gallery, show gallery disclaimer
-        if (path === "/gallery") {
-            contentContainer.appendChild(galleryDisclaimer);
-        }
+        contentContainer.appendChild(footerInstagramLink);
     });
 }
 // Footer
@@ -562,7 +577,6 @@ footer.innerText = "© Intellectual property of Harry Tandy";
 navbar.appendChild(homeItem);
 navbar.appendChild(galleryItem);
 navbar.appendChild(aftercareItem);
-navbar.appendChild(bookingItem);
 // Navbarcontainer appending navbar
 navbarContainer.appendChild(navbar);
 // Appending title and tagline to titlecontainer
@@ -583,6 +597,7 @@ container.appendChild(mainContainer);
 // Assemble App
 app.appendChild(container);
 window.addEventListener("popstate", renderPage);
+initSwipe(); // Initial Swipe Function
 renderPage(); // Initial render of page
 export {};
 //# sourceMappingURL=main.js.map

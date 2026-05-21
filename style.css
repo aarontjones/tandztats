@@ -249,6 +249,16 @@ body {
     align-items: flex-start;
     gap: 40px;
     width: 75%;
+    padding-bottom: 35px;
+}
+
+/* Booking */
+.short-booking-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 50%;
+    padding-bottom: 35px;
 }
 
 /* about container */
@@ -306,12 +316,9 @@ body {
 .portrait-name {
     text-align: center;
     margin-top: 10px;
-    font-size: 36px;
+    font-size: 34px;
     letter-spacing: 6px;
     font-family: 'Grenze Gotisch', cursive;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
 }
 
 /*                                  Gallery page only                                  */
@@ -610,7 +617,7 @@ body {
     font-size: 1.8rem;
     margin-top: 8px;
     margin-bottom: 8px;
-    letter-spacing: 12px;
+    letter-spacing: 8px;
     text-align: center;
 }
 
@@ -833,7 +840,7 @@ body {
     }
 
     .aftercare-separate {
-        letter-spacing: 4px;
+        letter-spacing: 3px;
     }
 
     .about-text {
@@ -841,7 +848,7 @@ body {
     }
 
     .portrait-name {
-        font-size: 30px;
+        font-size: 24px;
     }
     
     .section-title {
@@ -860,7 +867,8 @@ body {
     }
 
     .about-container,
-    .image-container {
+    .image-container,
+    .short-booking-container {
         width: 100%;
     }
 
