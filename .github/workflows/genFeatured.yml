@@ -1,11 +1,11 @@
-name: Update Gallery
+name: Update Featured Carousel
 
 permissions:
   contents: write  # Needed to allow pushing changes
 
 on:
   schedule:
-    - cron: "0 * * * *"  # every hour
+    - cron: "0 */4 * * *"
   workflow_dispatch:    # manual run
 
 jobs:
