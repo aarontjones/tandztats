@@ -557,6 +557,7 @@ modalContent.className = "modal-content"
 const modalImage = document.createElement("img")
 modalImage.className = "modal-image"
 modalImage.draggable = false // messes with zoom if its true
+modalImage.addEventListener("contextmenu", (e) => e.preventDefault()) // mobile holding down zoom fix
 
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div")

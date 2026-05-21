@@ -543,6 +543,7 @@ body {
     border-radius: 9px;
     -webkit-user-drag: none;
     user-select: none;
+    touch-action: none;
 }
 
 /* Modal Likes and Info*/
