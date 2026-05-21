@@ -254,7 +254,7 @@ function galleryPage() {
     galleryTitle.innerText = "Gallery";
     const subtext = document.createElement("p");
     subtext.className = "subtext";
-    subtext.innerText = "Here is a collection of my flashes. Tap on any of them to get a closer look, and press CNTRL on your keyboard to zoom in. If you like any of these, reach out to me on Instagram to enquire and book in!";
+    subtext.innerText = "Here is a collection of my flashes. Tap on any of them to get a closer look, press and hold on an image to zoom in and get a closer look! If you like any of these, reach out to me on Instagram to enquire and book in!";
     galleryContainer.appendChild(galleryTitle);
     galleryContainer.appendChild(subtext);
     // sort newest first
@@ -442,6 +442,7 @@ modalContent.className = "modal-content";
 // Modal image
 const modalImage = document.createElement("img");
 modalImage.className = "modal-image";
+modalImage.draggable = false; // messes with zoom if its true
 // Likes and Descriptions
 const modalInfoContainer = document.createElement("div");
 modalInfoContainer.className = "modal-info";
@@ -463,53 +464,77 @@ modalOverlay.appendChild(modalContent);
 const zoomLens = document.createElement("div");
 zoomLens.className = "zoom-lens";
 document.body.appendChild(zoomLens);
-const ZOOM_FACTOR = 1.55;
-const LENS_SIZE = 180;
-let ctrlHeld = false;
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Control") {
-        ctrlHeld = true;
-        if (modalOverlay.classList.contains("active")) {
-            zoomLens.classList.add("active");
-        }
-    }
-});
-document.addEventListener("keyup", (e) => {
-    if (e.key === "Control") {
-        ctrlHeld = false;
-        zoomLens.classList.remove("active");
-    }
-});
-// Adding movement to mouse
-modalImage.addEventListener("mousemove", (e) => {
-    if (!ctrlHeld)
-        return;
+const ZOOM_FACTOR = 1.45;
+let lensHeld = false;
+function getLensSize() {
+    return window.innerWidth <= 768 ? 220 : 180; // If mobile view: bigger lens.
+}
+function applyZoom(clientX, clientY) {
+    const LENS_SIZE = getLensSize();
     const rect = modalImage.getBoundingClientRect();
-    const xRatio = (e.clientX - rect.left) / rect.width;
-    const yRatio = (e.clientY - rect.top) / rect.height;
+    const xRatio = (clientX - rect.left) / rect.width;
+    const yRatio = (clientY - rect.top) / rect.height;
     const bgW = rect.width * ZOOM_FACTOR;
     const bgH = rect.height * ZOOM_FACTOR;
     const bgX = -(xRatio * bgW - LENS_SIZE / 2);
     const bgY = -(yRatio * bgH - LENS_SIZE / 2);
+    zoomLens.style.width = `${LENS_SIZE}px`;
+    zoomLens.style.height = `${LENS_SIZE}px`;
     zoomLens.style.backgroundImage = `url('${modalImage.src}')`;
     zoomLens.style.backgroundSize = `${bgW}px ${bgH}px`;
     zoomLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
-    zoomLens.style.left = `${e.clientX}px`;
-    zoomLens.style.top = `${e.clientY}px`;
+    zoomLens.style.left = `${clientX}px`;
+    zoomLens.style.top = `${clientY}px`;
+}
+// Mouse - Hold Click to zoom
+modalImage.addEventListener("mousedown", () => {
+    lensHeld = true;
+    zoomLens.classList.add("active");
+});
+document.addEventListener("mouseup", () => {
+    lensHeld = false;
+    zoomLens.classList.remove("active");
+});
+modalImage.addEventListener("mousemove", (e) => {
+    if (!lensHeld)
+        return;
+    applyZoom(e.clientX, e.clientY);
 });
 modalImage.addEventListener("mouseleave", () => {
     zoomLens.classList.remove("active");
+    lensHeld = false;
 });
-modalImage.addEventListener("mouseenter", () => {
-    if (ctrlHeld)
+// Touch - Hold tap to zoom
+let touchHoldTimer = null;
+modalImage.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    touchHoldTimer = setTimeout(() => {
+        lensHeld = true;
         zoomLens.classList.add("active");
+        applyZoom(touch.clientX, touch.clientY);
+    }, 300); // Adding slight delay
+}, { passive: true });
+modalImage.addEventListener("touchmove", (e) => {
+    if (!lensHeld)
+        return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    applyZoom(touch.clientX, touch.clientY);
+}, { passive: false });
+modalImage.addEventListener("touchend", () => {
+    if (touchHoldTimer)
+        clearTimeout(touchHoldTimer);
+    lensHeld = false;
+    zoomLens.classList.remove("active");
 });
 document.body.appendChild(modalOverlay);
 // Closing modal on click anywhere
-modalOverlay.addEventListener("click", () => {
-    modalOverlay.classList.remove("active");
-    zoomLens.classList.remove("active");
-    ctrlHeld = false;
+modalOverlay.addEventListener("click", (e) => {
+    if (e.target !== modalImage) {
+        modalOverlay.classList.remove("active");
+        zoomLens.classList.remove("active");
+        lensHeld = false;
+    }
 });
 // Rendering Page
 function renderPage() {
