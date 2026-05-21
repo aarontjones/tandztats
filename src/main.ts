@@ -635,8 +635,8 @@ function applyZoom(clientX: number, clientY: number) {
     zoomLens.style.backgroundImage = `url('${modalImage.src}')`
     zoomLens.style.backgroundSize = `${bgW}px ${bgH}px`
     zoomLens.style.backgroundPosition = `${bgX}px ${bgY}px`
-    zoomLens.style.left = `${clientX - (isMobile ? 35 : 0)}px` // offset by 50 pixels if its mobile
-    zoomLens.style.top = `${clientY - (isMobile ? 35 : 0)}px`
+    zoomLens.style.left = `${clientX}px` // offset by 50 pixels if its mobile
+    zoomLens.style.top = `${clientY - (isMobile ? 25 : 0)}px`
 }
 
 // Mouse - Hold Click to zoom
