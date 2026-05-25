@@ -284,10 +284,13 @@ function buildBlogCard(entry) {
         // Clickable images
         img.addEventListener("click", () => {
             var _a;
+            document.querySelectorAll(".blog-entry.modal-open").forEach(el => el.classList.remove("modal-open"));
             modalImage.src = img.src;
             modalCaption.innerText = (_a = entry.description[index]) !== null && _a !== void 0 ? _a : "";
             modalImage.style.display = "block";
             modalOverlay.classList.add("active");
+            // keeping hover description when modal is open
+            card.classList.add("modal-open");
         });
         imageGrid.appendChild(img);
     });
@@ -559,6 +562,8 @@ modalOverlay.addEventListener("click", (e) => {
         modalOverlay.classList.remove("active");
         zoomLens.classList.remove("active");
         lensHeld = false;
+        // Removing pinned desc
+        document.querySelectorAll(".blog-entry.modal-open").forEach(el => el.classList.remove("modal-open"));
     }
 });
 // Rendering Page

@@ -335,6 +335,13 @@ body {
     margin-bottom: 0.6rem;
     margin-top: 12px;
     border-radius: 12px;
+    align-self: center;
+    width: 75%;
+}
+
+.blog-entry.modal-open .blog-entry-desc {
+    max-height: 80px;
+    margin-top: 0.4rem;
 }
 
 .blog-entry-header {
@@ -892,6 +899,10 @@ body {
         padding-bottom: 5px;
         margin-bottom: 5px;
         justify-content: flex-start; /* optional: aligns left instead of center */
+    }
+
+    .blog-entry {
+        width: 100%;
     }
 
     .blog-entry-images {
