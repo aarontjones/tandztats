@@ -303,7 +303,8 @@ const blogEntries = [
     // Format - ID, Date, Blurb, Image(s), Description, Description of images in Array
     createBlogEntry(1, "19/5/2026", "Hand & Machine Poke Designs", ["1000003029.jpg", "1000003030.jpg"], "For this flash I used an automated pen made from one of my tattoo machines and a regular non-motorised pen for the smaller pieces you see.", ["The smaller designs will vary; some will be done with a machine, depending on whether they are blacked out or require whip shading. Some will be hand-poked, such as the horse and bull, to name some examples.", "These bigger designs will all be done using a machine."]),
     createBlogEntry(2, "01/5/2025", "Initial Tattoo Pencil Designs", ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"], "Some of my first designs, all done with pencil. Would love to do these!", ["Spartan, Insect and knife-thing", "Dragon", "Eagle, Flower and Buffalo", "Vase of Flowers", "Vase of Flowers, Vase with a snake and Samurai"]),
-    createBlogEntry(3, "20/6/2025", "First Flash Page", ["1.jpg"], "Another early set of flash, my first time utilising a whole page for designs", ["Check out these on the Insta!"])
+    createBlogEntry(3, "20/6/2025", "First Flash Page", ["1.jpg"], "Another early set of flash, my first time utilising a whole page for designs", ["Check out these on the Insta!"]),
+    createBlogEntry(4, "09/9/2025", "Knife Flash", ["1.jpg"], "Knife Flash, experimenting wrapping objects around one another.", ["Top to Bottom: Rose wrapped knife, Snake wrapped knife, Scorpion wrapped knife."])
 ];
 // Gallery
 function galleryPage() {

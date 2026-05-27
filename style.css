@@ -330,6 +330,10 @@ body {
 
 /* Blog style */
 
+.blog-entry-images.single .blog-entry-img {
+    max-width: 33%; /* mirrors one column of the 3-col grid */
+}
+
 .blog-entry {
     border: 1px solid black;
     margin-bottom: 0.6rem;
