@@ -249,54 +249,46 @@ function parseBlogDate(dateStr) {
     const [day, month, year] = dateStr.split("/").map(Number);
     return new Date(year, month - 1, day);
 }
-// Building blog card
-function buildBlogCard(entry) {
+// building cards in a masonry (Pinterest) style
+function buildMasonryCard(entry) {
     const card = document.createElement("div");
-    card.className = "blog-entry";
+    card.className = "masonry-card";
     const header = document.createElement("div");
-    header.className = "blog-entry-header";
+    header.className = "masonry-card-header";
     const blurb = document.createElement("span");
-    blurb.className = "blog-entry-blurb";
+    blurb.className = "masonry-card-blurb";
     blurb.innerText = entry.blurb;
-    const description = document.createElement("div");
-    description.className = "blog-entry-desc";
-    const descText = document.createElement("p");
-    descText.className = "blog-entry-desc-text";
-    descText.innerText = entry.overallDescription;
-    description.appendChild(descText);
+    const meta = document.createElement("div");
+    meta.className = "masonry-card-meta";
+    const desc = document.createElement("span");
+    desc.className = "masonry-card-desc";
+    desc.innerText = entry.overallDescription;
     const date = document.createElement("span");
-    date.className = "blog-entry-date";
+    date.className = "masonry-card-date";
     date.innerText = entry.date;
-    const headerTop = document.createElement("div");
-    headerTop.className = "blog-entry-header-top";
-    headerTop.appendChild(blurb);
-    headerTop.appendChild(date);
-    header.appendChild(headerTop);
-    header.appendChild(description);
-    // Image grid
-    const imageGrid = document.createElement("div");
-    imageGrid.className = "blog-entry-images";
+    meta.appendChild(desc);
+    meta.appendChild(date);
+    header.appendChild(blurb);
+    header.appendChild(meta);
+    const colCount = Math.min(entry.imageFilenames.length, 2);
+    const imgGrid = document.createElement("div");
+    imgGrid.className = `masonry-img-grid cols-${entry.imageFilenames.length}`;
     entry.imageFilenames.forEach((filename, index) => {
         const img = document.createElement("img");
         img.src = `assets/blogs/${entry.id}/${filename}`;
-        img.alt = `${entry.blurb} - ${filename}`;
-        img.className = "blog-entry-img";
-        // Clickable images
+        img.alt = `${entry.blurb} - image ${index + 1}`;
+        img.className = "masonry-img";
         img.addEventListener("click", () => {
             var _a;
-            document.querySelectorAll(".blog-entry.modal-open").forEach(el => el.classList.remove("modal-open"));
             modalImage.src = img.src;
             modalCaption.innerText = (_a = entry.description[index]) !== null && _a !== void 0 ? _a : "";
             modalImage.style.display = "block";
             modalOverlay.classList.add("active");
-            // keeping hover description when modal is open
-            card.classList.add("modal-open");
         });
-        imageGrid.appendChild(img);
+        imgGrid.appendChild(img);
     });
     card.appendChild(header);
-    card.appendChild(description);
-    card.appendChild(imageGrid);
+    card.appendChild(imgGrid);
     return card;
 }
 const blogEntries = [
@@ -320,11 +312,15 @@ function galleryPage() {
     subtext.innerText = "Here is a collection of my flashes. Tap on any of them to get a closer look, press and hold on an image to zoom in and get a closer look! If you like any of these, reach out to me on Instagram to enquire and book in!";
     galleryContainer.appendChild(galleryTitle);
     galleryContainer.appendChild(subtext);
+    // Optional Masonry-style
+    const masonry = document.createElement("div");
+    masonry.className = "masonry-grid";
     // sort newest first
     const sorted = [...blogEntries].sort((a, b) => parseBlogDate(b.date).getTime() - parseBlogDate(a.date).getTime());
     sorted.forEach((entry) => {
-        galleryContainer.appendChild(buildBlogCard(entry));
+        masonry.appendChild(buildMasonryCard(entry));
     });
+    galleryContainer.appendChild(masonry);
     return galleryContainer;
 }
 // Aftercare
